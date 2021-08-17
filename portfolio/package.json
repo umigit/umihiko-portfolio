@@ -1,0 +1,49 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio",
+  "author": "umigit",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop -H 0.0.0.0 -p 3000",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "gatsby": "^3.9.1",
+    "gatsby-awesome-pagination": "^0.3.8",
+    "gatsby-plugin-emotion": "^6.9.0",
+    "gatsby-plugin-graphql-codegen": "^3.0.0",
+    "gatsby-plugin-image": "^1.10.1",
+    "gatsby-plugin-sharp": "^3.10.2",
+    "gatsby-source-filesystem": "^3.10.0",
+    "gatsby-source-graphql": "^3.11.0",
+    "gatsby-transformer-sharp": "^3.10.0",
+    "lodash": "^4.17.21",
+    "modern-css-reset": "^1.4.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-markdown": "^5.0.3",
+    "react-syntax-highlighter": "^15.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^16.3.3",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-syntax-highlighter": "^13.5.2",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  }
+}
