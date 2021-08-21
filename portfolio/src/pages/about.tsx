@@ -123,7 +123,7 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
 export const query = graphql`
   query GetProfile {
     portfolio {
-      user(id: 2) {
+      user(username: umihiko) {
         username
         email
         profiles {
