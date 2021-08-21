@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { PageProps, Link } from 'gatsby';
-import { css } from '@emotion/react';
-import { colors } from '../styles/colors';
 import { CodeBlock } from './codeblock';
 
 type Props = {

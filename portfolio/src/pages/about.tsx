@@ -15,6 +15,7 @@ const container = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
 `;
 
 const panel = css`
