@@ -1,8 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
-import { StaticImage, GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { colors } from '../styles/colors';
+import { useMediaQuery } from 'react-responsive';
+import { moblie, tablet } from '../styles/media-query';
 import { Portfolio_BlogPostType } from '../../types/graphql-types';
 
 const panelContainer = css`
@@ -13,6 +14,17 @@ const panelContainer = css`
   a {
     text-decoration: none;
   }
+`;
+
+const panelContainerTablet = css`
+  ${panelContainer}
+  width: calc(100% / 2);
+`;
+
+const panelContainerMobile = css`
+  ${panelContainer}
+  padding: 10px 0;
+  width: 100%;
 `;
 
 const panel = css`
@@ -77,8 +89,17 @@ type BlogPostPanelType = Pick<
 export const BlogPostPanel: React.FC<{ post: BlogPostPanelType }> = ({
   post,
 }) => {
+  const isMobile = useMediaQuery(moblie);
+  const isTablet = useMediaQuery(tablet);
+  const isPC = !isMobile && !isTablet;
+  const panelContainerCss = isMobile
+    ? panelContainerMobile
+    : isTablet
+    ? panelContainerTablet
+    : panelContainer;
+
   return (
-    <div css={panelContainer} key={post.slug}>
+    <div css={panelContainerCss} key={post.slug}>
       <Link to={`/blog/entry/${post.slug}`}>
         <div css={panel}>
           {post?.image?.url ? (

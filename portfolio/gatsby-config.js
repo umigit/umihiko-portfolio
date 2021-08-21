@@ -1,7 +1,11 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
-    siteUrl: 'https://www.yourdomain.tld',
-    title: 'Portfolio',
+    siteUrl: process.env.SITE_URL,
+    title: 'Umihiko',
   },
   plugins: [
     `gatsby-plugin-typescript`,
@@ -21,8 +25,17 @@ module.exports = {
       options: {
         typeName: 'Portfolio',
         fieldName: 'portfolio',
-        url: 'http://localhost:8000/graphql/portfolio',
-        mapping: { markdown: 'text/markdown' },
+        url: process.env.API_URL,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: 'Umihiko',
+        short_name: 'umihiko',
+        start_url: '/',
+        display: 'standalone',
+        icon: './src/images/icon.png',
       },
     },
   ],

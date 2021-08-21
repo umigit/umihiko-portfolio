@@ -3,6 +3,8 @@ import { PageProps } from 'gatsby';
 import { css } from '@emotion/react';
 import { StaticImage } from 'gatsby-plugin-image';
 import { Layout } from '../components/layout';
+import { useMediaQuery } from 'react-responsive';
+import { moblie } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -16,11 +18,18 @@ const image = css`
   transform: translateY(-60px);
 `;
 
+const imageMobile = css`
+  transform: translateY(0);
+`;
+
 const IndexPage: React.FC<PageProps> = ({ location }) => {
+  const isMobile = useMediaQuery(moblie);
+  const imageCss = isMobile ? imageMobile : image;
+
   return (
     <Layout pathname={location.pathname}>
       <div css={container}>
-        <div css={image}>
+        <div css={imageCss}>
           <StaticImage src='../images/umihiko_logo.png' alt='logo' />
         </div>
       </div>

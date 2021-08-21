@@ -52,7 +52,7 @@ exports.createPages = async ({ actions, graphql }) => {
   // create blog list by category
   const edgesByCategory = groupBy(edges, (edge) => edge.node.category);
   const categories = Object.keys(edgesByCategory);
-  console.log(categories);
+
   categories.forEach((key) => {
     const edges = edgesByCategory[key];
     const numberOfPages = Math.ceil(edges.length / pageSize);

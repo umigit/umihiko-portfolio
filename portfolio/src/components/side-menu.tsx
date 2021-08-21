@@ -15,11 +15,21 @@ const panel = css`
   color: ${colors.white};
   background-color: ${colors.alphaBlack};
 
+  a {
+    color: ${colors.orange};
+    text-decoration: none;
+  }
+
   h2 {
     padding: 0rem 0.5rem;
     margin: 0.75rem 0;
     border-left: 0.25rem solid ${colors.orange};
   }
+`;
+
+const categoryLink = css`
+  padding-left: 1rem;
+  margin: 0.5rem 0;
 `;
 
 type Props = {
@@ -35,13 +45,12 @@ export const SideMenu: React.FC<Props> = ({ pageContext }) => {
         {categories && (
           <div>
             <h2>Categories</h2>
-            <ul>
-              {categories.map((category) => (
-                <li>
-                  <Link to={`/blog/category/${category}`}>{category}</Link>
-                </li>
-              ))}
-            </ul>
+
+            {categories.map((category, i) => (
+              <div css={categoryLink} key={i}>
+                <Link to={`/blog/category/${category}`}>{category}</Link>
+              </div>
+            ))}
           </div>
         )}
       </div>

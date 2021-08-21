@@ -5,6 +5,8 @@ import { Layout } from '../components/layout';
 import { SideMenu } from '../components/side-menu';
 import { Markdown } from '../components/markdown';
 import { Breadcrumb } from '../components/breadcrumb';
+import { useMediaQuery } from 'react-responsive';
+import { moblie, tablet } from '../styles/media-query';
 import { colors } from '../styles/colors';
 import {
   GetBlogPostBySlugQuery,
@@ -37,10 +39,16 @@ const blogPostContainer = css`
 `;
 
 const blogPostPanelContainer = css`
+  min-width: 0;
   padding: 0 30px;
   flex: 1;
   position: relative;
-  z-index: 2;
+`;
+
+const blogPostPanelContainerMobile = css`
+  ${blogPostPanelContainer}
+
+  padding: 0 10px;
 `;
 
 const heading = css`
@@ -79,6 +87,11 @@ const blogPostPanel = css`
   }
 `;
 
+const blogPostPanelMobile = css`
+  ${blogPostPanel}
+  padding: 1rem 0.5rem 2rem;
+`;
+
 const date = css`
   color: ${colors.gray};
 `;
@@ -98,6 +111,7 @@ const body = css`
 
   pre {
     margin: 1rem 0;
+    overflow-x: auto;
   }
 `;
 
@@ -128,6 +142,11 @@ export type Props = PageProps<GetBlogPostBySlugQuery, SitePageContext>;
 
 const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPost = data.portfolio.blogPostBySlug;
+  const isMobile = useMediaQuery(moblie);
+  const isTablet = useMediaQuery(tablet);
+  const isPC = !isMobile && !isTablet;
+
+  const blogPostPanelCss = isMobile ? blogPostPanelMobile : blogPostPanel;
 
   if (!blogPost) {
     return <div></div>;
@@ -135,12 +154,14 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
 
   return (
     <Layout pathname={location.pathname}>
-      <div css={breadcrumbConatiner}>
-        <Breadcrumb pageContext={pageContext} />
-      </div>
+      {isPC && (
+        <div css={breadcrumbConatiner}>
+          <Breadcrumb pageContext={pageContext} />
+        </div>
+      )}
       <div css={blogPostContainer}>
-        <div css={blogPostPanelContainer}>
-          <div css={blogPostPanel}>
+        <div css={isPC ? blogPostPanelContainer : blogPostPanelContainerMobile}>
+          <div css={blogPostPanelCss}>
             <p css={date}>
               <span>Last Updated: </span>
               {formatDate(blogPost.updatedAt)}
@@ -158,9 +179,11 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
             </div>
           </div>
         </div>
-        <div css={sideMenuContainer}>
-          <SideMenu pageContext={pageContext} />
-        </div>
+        {isPC && (
+          <div css={sideMenuContainer}>
+            <SideMenu pageContext={pageContext} />
+          </div>
+        )}
       </div>
     </Layout>
   );

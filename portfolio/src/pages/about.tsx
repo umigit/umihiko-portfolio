@@ -6,6 +6,8 @@ import { Layout } from '../components/layout';
 import { colors } from '../styles/colors';
 import { Accounts } from '../components/accounts';
 import { GetProfileQuery, SitePageContext } from '../../types/graphql-types';
+import { useMediaQuery } from 'react-responsive';
+import { moblie, tablet } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -23,8 +25,20 @@ const panel = css`
   display: flex;
 `;
 
+const panelMobile = css`
+  ${panel}
+  width: 100%;
+  margin: 0 10px;
+  display: block;
+`;
+
 const image = css`
   flex: 1;
+`;
+
+const imageMobile = css`
+  float: left;
+  margin-right: 1rem;
 `;
 
 const text = css`
@@ -32,10 +46,20 @@ const text = css`
   padding: 20px;
   display: flex;
   flex-direction: column;
+
   p {
     white-space: pre-wrap;
     word-wrap: break-word;
     flex: 1;
+  }
+`;
+
+const textMobile = css`
+  ${text}
+  width: 100%;
+
+  h2 {
+    margin-bottom: 0.25rem;
   }
 `;
 
@@ -46,21 +70,45 @@ const accounts = css`
 export type Props = PageProps<GetProfileQuery, SitePageContext>;
 
 const AboutPage: React.FC<Props> = ({ data, location }) => {
-  const user = data.portfolio ? data.portfolio.user : null;
+  const user = data.portfolio.user;
+  const isMobile = useMediaQuery(moblie);
+  const isTablet = useMediaQuery(tablet);
+  const isPC = !isMobile && !isTablet;
+  const panelCss = isMobile ? panelMobile : panel;
+  const imageCss = isMobile ? imageMobile : image;
+  const textCss = isMobile ? textMobile : text;
+
+  if (!user) {
+    return <></>;
+  }
 
   return (
     <Layout pathname={location.pathname}>
       <div css={container}>
         {user && (
-          <div css={panel}>
-            <StaticImage
-              css={image}
-              src='../images/profile.jpg'
-              alt='profile'
-            />
-            <div css={text}>
-              <h2>{user.profiles.find((p) => p.locale === 'ja')?.nickname}</h2>
-              <p>{user.profiles.find((p) => p.locale === 'ja')?.summary}</p>
+          <div css={panelCss}>
+            {!isMobile && (
+              <StaticImage
+                css={image}
+                src='../images/profile.jpg'
+                alt='profile'
+              />
+            )}
+            <div css={textCss}>
+              <p>
+                {isMobile && (
+                  <StaticImage
+                    css={imageMobile}
+                    height={100}
+                    src='../images/profile.jpg'
+                    alt='profile'
+                  />
+                )}
+                <h2>
+                  {user.profiles.find((p) => p.locale === 'ja')?.nickname}
+                </h2>
+                {user.profiles.find((p) => p.locale === 'ja')?.summary}
+              </p>
               <div css={accounts}>
                 <Accounts />
               </div>

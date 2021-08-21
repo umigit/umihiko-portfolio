@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.development
     working_dir: /portfolio
     env_file:
-      - .env
+      - .env.development
     volumes:
       - ./portfolio:/portfolio
       - node_modules_gatsby:/portfolio/node_modules

@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import { colors } from '../styles/colors';
 import { HomeButton } from './home-button';
 import { HeaderNav } from './header-nav';
+import { useMediaQuery } from 'react-responsive';
+import { moblie, tablet } from '../styles/media-query';
 
 const wrapper = css`
   width: 100%;
@@ -15,10 +17,20 @@ const wrapper = css`
   position: relative;
 `;
 
+const wrapperMobile = css`
+  ${wrapper}
+  height: 60px;
+`;
+
 const home = css`
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 0;
+`;
+
+const homeMobile = css`
+  ${home}
+  top: 0;
 `;
 
 const nav = css`
@@ -28,17 +40,23 @@ const nav = css`
 `;
 
 export const Header: React.FC<{ pathname: string }> = ({ pathname }) => {
+  const isMobile = useMediaQuery(moblie);
+  const wrapperCss = isMobile ? wrapperMobile : wrapper;
+  const homeCss = isMobile ? homeMobile : home;
+
   return (
     <header>
-      <div css={wrapper}>
+      <div css={wrapperCss}>
         {pathname !== '/' && (
-          <div css={home}>
-            <HomeButton />
+          <div css={homeCss}>
+            <HomeButton css={{ height: '80px' }} />
           </div>
         )}
-        <div css={nav}>
-          <HeaderNav />
-        </div>
+        {!isMobile && (
+          <div css={nav}>
+            <HeaderNav />
+          </div>
+        )}
       </div>
     </header>
   );
