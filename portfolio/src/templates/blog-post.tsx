@@ -105,6 +105,14 @@ const sideMenuContainer = css`
 const body = css`
   ${heading}
 
+  p {
+    margin-bottom: 1rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
   img {
     margin: 1rem 0;
   }
