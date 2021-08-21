@@ -2,8 +2,6 @@ body {
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN',
     'Hiragino Sans', Meiryo, sans-serif;
   background-image: url('../images/bruno_bg.jpg');
-  /* background-position: center; */
-  background-size: 100vw auto;
-  background-position: top right left;
-  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
 }

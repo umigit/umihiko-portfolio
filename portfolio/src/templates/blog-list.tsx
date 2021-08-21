@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageProps, Link, graphql } from 'gatsby';
+import { PageProps, graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import { Layout } from '../components/layout';
 import { BlogPostPanel } from '../components/blog-post-panel';
@@ -53,42 +53,44 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPosts = data.portfolio.blogPosts?.edges;
   const currentPage = pageContext.currentPage;
   const isMobile = useMediaQuery(moblie);
-  const blogPanelContainerCss = isMobile
-    ? blogPanelContainerMobile
-    : blogPanelContainer;
-  const paginationContainerCss = isMobile
-    ? paginationContainerMobile
-    : paginationContainer;
 
   if (!blogPosts || !currentPage) {
     return (
       <Layout pathname={location.pathname}>
-        <h1>Sorry! Something wrong this page. Try again later.</h1>
+        <p>Sorry! Something wrong this page. Try again later.</p>
       </Layout>
     );
   }
 
-  return (
-    <Layout pathname={location.pathname}>
+  const blogPostPanels = blogPosts.map(
+    (edge) =>
+      edge &&
+      edge.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
+  );
+
+  const content = isMobile ? (
+    <div>
       <div css={breadcrumbContainer}>
         <Breadcrumb pageContext={pageContext} />
       </div>
-      <div css={blogPanelContainerCss}>
-        {blogPosts.map(
-          (edge) =>
-            edge &&
-            edge.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
-        )}
+      <div css={blogPanelContainerMobile}>{blogPostPanels}</div>
+      <div css={paginationContainerMobile}>
+        <MobilePagination pageContext={pageContext} />
       </div>
-      <div css={paginationContainerCss}>
-        {isMobile ? (
-          <MobilePagination pageContext={pageContext} />
-        ) : (
-          <Pagination pageContext={pageContext} />
-        )}
+    </div>
+  ) : (
+    <div>
+      <div css={breadcrumbContainer}>
+        <Breadcrumb pageContext={pageContext} />
       </div>
-    </Layout>
+      <div css={blogPanelContainer}>{blogPostPanels}</div>
+      <div css={paginationContainer}>
+        <Pagination pageContext={pageContext} />
+      </div>
+    </div>
   );
+
+  return <Layout pathname={location.pathname}>{content}</Layout>;
 };
 
 export const pageQuery = graphql`

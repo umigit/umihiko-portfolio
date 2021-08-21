@@ -7,7 +7,7 @@ import { colors } from '../styles/colors';
 import { Accounts } from '../components/accounts';
 import { GetProfileQuery, SitePageContext } from '../../types/graphql-types';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet } from '../styles/media-query';
+import { moblie } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -73,35 +73,24 @@ export type Props = PageProps<GetProfileQuery, SitePageContext>;
 const AboutPage: React.FC<Props> = ({ data, location }) => {
   const user = data.portfolio.user;
   const isMobile = useMediaQuery(moblie);
-  const panelCss = isMobile ? panelMobile : panel;
-  const textCss = isMobile ? textMobile : text;
 
   if (!user) {
-    return <></>;
+    return <Layout pathname={location.pathname}></Layout>;
   }
 
-  return (
-    <Layout pathname={location.pathname}>
-      <div css={container}>
-        {user && (
-          <div css={panelCss}>
-            {!isMobile && (
-              <StaticImage
-                css={image}
-                src='../images/profile.jpg'
-                alt='profile'
-              />
-            )}
-            <div css={textCss}>
+  if (isMobile) {
+    return (
+      <Layout pathname={location.pathname}>
+        <div css={container}>
+          <div css={panelMobile}>
+            <div css={textMobile}>
               <p>
-                {isMobile && (
-                  <StaticImage
-                    css={imageMobile}
-                    height={100}
-                    src='../images/profile.jpg'
-                    alt='profile'
-                  />
-                )}
+                <StaticImage
+                  css={imageMobile}
+                  height={100}
+                  src='../images/profile.jpg'
+                  alt='profile'
+                />
                 <h2>
                   {user.profiles.find((p) => p.locale === 'ja')?.nickname}
                 </h2>
@@ -112,7 +101,27 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
               </div>
             </div>
           </div>
-        )}
+        </div>
+      </Layout>
+    );
+  }
+
+  return (
+    <Layout pathname={location.pathname}>
+      <div css={container}>
+        <div css={panel}>
+          <StaticImage css={image} src='../images/profile.jpg' alt='profile' />
+
+          <div css={text}>
+            <p>
+              <h2>{user.profiles.find((p) => p.locale === 'ja')?.nickname}</h2>
+              {user.profiles.find((p) => p.locale === 'ja')?.summary}
+            </p>
+            <div css={accounts}>
+              <Accounts />
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   );

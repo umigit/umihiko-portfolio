@@ -25,14 +25,19 @@ const imageMobile = css`
 
 const IndexPage: React.FC<PageProps> = ({ location }) => {
   const isMobile = useMediaQuery(moblie);
-  const imageCss = isMobile ? imageMobile : image;
 
   return (
     <Layout pathname={location.pathname}>
       <div css={container}>
-        <div css={imageCss}>
-          <StaticImage src='../images/umihiko_logo.png' alt='logo' />
-        </div>
+        {isMobile ? (
+          <div css={imageMobile}>
+            <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+          </div>
+        ) : (
+          <div css={image}>
+            <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+          </div>
+        )}
       </div>
     </Layout>
   );

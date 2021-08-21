@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageProps, Link, graphql } from 'gatsby';
+import { PageProps, graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import { Layout } from '../components/layout';
 import { SideMenu } from '../components/side-menu';
@@ -153,39 +153,48 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const isMobile = useMediaQuery(moblie);
   const isTablet = useMediaQuery(tablet);
   const isPC = !isMobile && !isTablet;
-
-  const blogPostPanelCss = isMobile ? blogPostPanelMobile : blogPostPanel;
+  const imageTitle = blogPost?.image?.title || 'no image';
+  const imageUrl = blogPost?.image?.url || '../images/noimage.png';
 
   if (!blogPost) {
     return <div></div>;
   }
 
-  return (
-    <Layout pathname={location.pathname}>
-      {isPC && (
-        <div css={breadcrumbConatiner}>
-          <Breadcrumb pageContext={pageContext} />
-        </div>
-      )}
+  const blogBody = (
+    <div>
+      <p css={date}>
+        <span>Last Updated: </span>
+        {formatDate(blogPost.updatedAt)}
+      </p>
+      <h1>{blogPost.title}</h1>
+
+      <div css={image}>
+        <img src={imageUrl} alt={imageTitle} />
+      </div>
+
+      <h2>概要</h2>
+      <p>{blogPost.introduction}</p>
+      <div css={body}>
+        <Markdown markdown={blogPost.markdown} />
+      </div>
+    </div>
+  );
+
+  const content = isMobile ? (
+    <div css={blogPostContainer}>
+      <div css={blogPostPanelContainerMobile}>
+        <div css={blogPostPanelMobile}>{blogBody}</div>
+      </div>
+    </div>
+  ) : (
+    <div>
+      <div css={breadcrumbConatiner}>
+        <Breadcrumb pageContext={pageContext} />
+      </div>
+
       <div css={blogPostContainer}>
-        <div css={isPC ? blogPostPanelContainer : blogPostPanelContainerMobile}>
-          <div css={blogPostPanelCss}>
-            <p css={date}>
-              <span>Last Updated: </span>
-              {formatDate(blogPost.updatedAt)}
-            </p>
-            <h1>{blogPost.title}</h1>
-            {blogPost?.image?.url && (
-              <div css={image}>
-                <img src={blogPost.image.url} />
-              </div>
-            )}
-            <h2>概要</h2>
-            <p>{blogPost.introduction}</p>
-            <div css={body}>
-              <Markdown markdown={blogPost.markdown} />
-            </div>
-          </div>
+        <div css={blogPostPanelContainer}>
+          <div css={blogPostPanel}>{blogBody}</div>
         </div>
         {isPC && (
           <div css={sideMenuContainer}>
@@ -193,8 +202,10 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
           </div>
         )}
       </div>
-    </Layout>
+    </div>
   );
+
+  return <Layout pathname={location.pathname}>{content}</Layout>;
 };
 
 export const pageQuery = graphql`
