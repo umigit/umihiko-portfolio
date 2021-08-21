@@ -762,7 +762,7 @@ export type Portfolio = {
 
 
 export type PortfolioUserArgs = {
-  id: Scalars['Int'];
+  username: Scalars['String'];
 };
 
 

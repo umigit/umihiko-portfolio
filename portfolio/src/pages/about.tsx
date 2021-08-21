@@ -72,10 +72,7 @@ export type Props = PageProps<GetProfileQuery, SitePageContext>;
 const AboutPage: React.FC<Props> = ({ data, location }) => {
   const user = data.portfolio.user;
   const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = !isMobile && !isTablet;
   const panelCss = isMobile ? panelMobile : panel;
-  const imageCss = isMobile ? imageMobile : image;
   const textCss = isMobile ? textMobile : text;
 
   if (!user) {
@@ -123,7 +120,7 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
 export const query = graphql`
   query GetProfile {
     portfolio {
-      user(username: umihiko) {
+      user(username: "umihiko") {
         username
         email
         profiles {
