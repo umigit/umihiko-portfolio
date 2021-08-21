@@ -180,32 +180,36 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
     </div>
   );
 
-  const content = isMobile ? (
-    <div css={blogPostContainer}>
-      <div css={blogPostPanelContainerMobile}>
-        <div css={blogPostPanelMobile}>{blogBody}</div>
-      </div>
-    </div>
-  ) : (
-    <div>
-      <div css={breadcrumbConatiner}>
-        <Breadcrumb pageContext={pageContext} />
-      </div>
-
-      <div css={blogPostContainer}>
-        <div css={blogPostPanelContainer}>
-          <div css={blogPostPanel}>{blogBody}</div>
-        </div>
-        {isPC && (
-          <div css={sideMenuContainer}>
-            <SideMenu pageContext={pageContext} />
+  return (
+    <Layout pathname={location.pathname}>
+      {isMobile ? (
+        <div>
+          <div css={blogPostContainer}>
+            <div css={blogPostPanelContainerMobile}>
+              <div css={blogPostPanelMobile}>{blogBody}</div>
+            </div>
           </div>
-        )}
-      </div>
-    </div>
-  );
+        </div>
+      ) : (
+        <div>
+          <div css={breadcrumbConatiner}>
+            <Breadcrumb pageContext={pageContext} />
+          </div>
 
-  return <Layout pathname={location.pathname}>{content}</Layout>;
+          <div css={blogPostContainer}>
+            <div css={blogPostPanelContainer}>
+              <div css={blogPostPanel}>{blogBody}</div>
+            </div>
+            {isPC && (
+              <div css={sideMenuContainer}>
+                <SideMenu pageContext={pageContext} />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </Layout>
+  );
 };
 
 export const pageQuery = graphql`
