@@ -68,7 +68,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
       edge.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
   );
 
-  const content = isMobile ? (
+  const contentMobile = (
     <div>
       <div css={breadcrumbContainer}>
         <Breadcrumb pageContext={pageContext} />
@@ -78,7 +78,9 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
         <MobilePagination pageContext={pageContext} />
       </div>
     </div>
-  ) : (
+  );
+
+  const content = (
     <div>
       <div css={breadcrumbContainer}>
         <Breadcrumb pageContext={pageContext} />
@@ -90,7 +92,11 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
     </div>
   );
 
-  return <Layout pathname={location.pathname}>{content}</Layout>;
+  return (
+    <Layout pathname={location.pathname}>
+      {isMobile ? contentMobile : content}
+    </Layout>
+  );
 };
 
 export const pageQuery = graphql`
