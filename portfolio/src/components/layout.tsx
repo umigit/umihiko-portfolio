@@ -16,14 +16,11 @@ const main = css`
   flex-direction: column;
 `;
 
-const imageContainer = css`
-  position: fixed;
-  top: 0;
-`;
-
 const image = css`
   width: 100vw;
-  height: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
 `;
 
 const mainContainer = css`
@@ -51,13 +48,12 @@ export const Layout: React.FC<{ pathname: string }> = ({
   return (
     <>
       <div css={main} style={{ minHeight: minHeight }}>
-        <Div100vh css={imageContainer}>
-          <StaticImage
-            css={image}
-            src='../images/bruno_bg.jpg'
-            alt='background'
-          />
-        </Div100vh>
+        <StaticImage
+          css={image}
+          src='../images/bruno_bg.jpg'
+          alt='background'
+        />
+
         <Header pathname={pathname} />
         {isMobile && <div css={mainContainerMobile}>{children}</div>}
         {(isTablet || isPC) && <div css={mainContainer}>{children}</div>}
