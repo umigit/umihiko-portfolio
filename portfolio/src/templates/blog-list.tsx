@@ -6,6 +6,8 @@ import { BlogPostPanel } from '../components/blog-post-panel';
 import { Pagination } from '../components/pagination';
 import { MobilePagination } from '../components/mobile-pagination';
 import { Breadcrumb } from '../components/breadcrumb';
+import { BlogListLayout } from '../components/blog-list-layout';
+import { MobileBlogListLayout } from '../components/mobile-blog-list-layout';
 import { useMediaQuery } from 'react-responsive';
 import { moblie } from '../styles/media-query';
 import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
@@ -68,33 +70,17 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
       edge.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
   );
 
-  const contentMobile = (
-    <div>
-      <div css={breadcrumbContainer}>
-        <Breadcrumb pageContext={pageContext} />
-      </div>
-      <div css={blogPanelContainerMobile}>{blogPostPanels}</div>
-      <div css={paginationContainerMobile}>
-        <MobilePagination pageContext={pageContext} />
-      </div>
-    </div>
-  );
-
-  const content = (
-    <div>
-      <div css={breadcrumbContainer}>
-        <Breadcrumb pageContext={pageContext} />
-      </div>
-      <div css={blogPanelContainer}>{blogPostPanels}</div>
-      <div css={paginationContainer}>
-        <Pagination pageContext={pageContext} />
-      </div>
-    </div>
-  );
-
   return (
     <Layout pathname={location.pathname}>
-      {isMobile ? contentMobile : content}
+      {isMobile ? (
+        <MobileBlogListLayout pageContext={pageContext}>
+          {blogPostPanels}
+        </MobileBlogListLayout>
+      ) : (
+        <BlogListLayout pageContext={pageContext}>
+          {blogPostPanels}
+        </BlogListLayout>
+      )}
     </Layout>
   );
 };
