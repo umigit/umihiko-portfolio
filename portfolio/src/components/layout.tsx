@@ -26,7 +26,6 @@ const image = css`
 const mainContainer = css`
   width: 100%;
   position: relative;
-  flex: 1;
   display: flex;
   flex-direction: column;
 `;
