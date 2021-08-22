@@ -79,11 +79,12 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
       >
         {isMobile ? 'mobile' : 'no mobile'}
       </p>
-      {isMobile ? (
+      {isMobile && (
         <MobileBlogListLayout pageContext={pageContext}>
           {blogPostPanels}
         </MobileBlogListLayout>
-      ) : (
+      )}
+      {!isMobile && (
         <BlogListLayout pageContext={pageContext}>
           {blogPostPanels}
         </BlogListLayout>
