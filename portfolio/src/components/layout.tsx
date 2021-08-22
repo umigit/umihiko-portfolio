@@ -18,7 +18,7 @@ const main = css`
 
 const image = css`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
 `;
