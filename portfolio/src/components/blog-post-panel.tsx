@@ -3,28 +3,15 @@ import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { colors } from '../styles/colors';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
 import { Portfolio_BlogPostType } from '../../types/graphql-types';
 
 const panelContainer = css`
-  width: calc(100% / 3);
-  padding: 15px;
+  width: 100%;
   display: flex;
 
   a {
     text-decoration: none;
   }
-`;
-
-const panelContainerTablet = css`
-  ${panelContainer}
-  width: calc(100% / 2);
-`;
-
-const panelContainerMobile = css`
-  ${panelContainer}
-  padding: 10px 0;
-  width: 100%;
 `;
 
 const panel = css`
@@ -89,24 +76,14 @@ type BlogPostPanelType = Pick<
 export const BlogPostPanel: React.FC<{ post: BlogPostPanelType }> = ({
   post,
 }) => {
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
-  const panelContainerCss = isMobile
-    ? panelContainerMobile
-    : isTablet
-    ? panelContainerTablet
-    : panelContainer;
+  const imageTitle = post?.image?.title || 'no image';
+  const imageUrl = post?.image?.url || '../images/noimage.png';
 
   return (
-    <div css={panelContainerCss} key={post.slug}>
+    <div css={panelContainer} key={post.slug}>
       <Link to={`/blog/entry/${post.slug}`}>
         <div css={panel}>
-          {post?.image?.url ? (
-            <img css={image} src={post.image.url} alt={post.image.title} />
-          ) : (
-            <div></div>
-          )}
+          <img css={image} src={imageUrl} alt={imageTitle} />
           <div css={text}>
             <h1>{post.title}</h1>
             <p>{post.introduction}</p>

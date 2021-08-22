@@ -5,7 +5,7 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { Header } from './header';
 import { MobileNav } from './mobile-nav';
 import { useMediaQuery } from 'react-responsive';
-import { moblie } from '../styles/media-query';
+import { moblie, tablet, PC } from '../styles/media-query';
 import '../styles/global.css';
 
 const main = css`
@@ -41,7 +41,8 @@ export const Layout: React.FC<{ pathname: string }> = ({
   pathname,
 }) => {
   const isMobile = useMediaQuery(moblie);
-  const mainContainerCss = isMobile ? mainContainerMobile : mainContainer;
+  const isTablet = useMediaQuery(tablet);
+  const isPC = useMediaQuery(PC);
 
   return (
     <>
@@ -52,7 +53,8 @@ export const Layout: React.FC<{ pathname: string }> = ({
           alt='background'
         />
         <Header pathname={pathname} />
-        <div css={mainContainerCss}>{children}</div>
+        {isMobile && <div css={mainContainerMobile}>{children}</div>}
+        {(isTablet || isPC) && <div css={mainContainer}>{children}</div>}
         {isMobile && <MobileNav />}
       </div>
     </>

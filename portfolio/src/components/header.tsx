@@ -4,7 +4,7 @@ import { colors } from '../styles/colors';
 import { HomeButton } from './home-button';
 import { HeaderNav } from './header-nav';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet } from '../styles/media-query';
+import { moblie, tablet, PC } from '../styles/media-query';
 
 const wrapper = css`
   width: 100%;
@@ -41,6 +41,8 @@ const nav = css`
 
 export const Header: React.FC<{ pathname: string }> = ({ pathname }) => {
   const isMobile = useMediaQuery(moblie);
+  const isTablet = useMediaQuery(tablet);
+  const isPC = useMediaQuery(PC);
   const wrapperCss = isMobile ? wrapperMobile : wrapper;
   const homeCss = isMobile ? homeMobile : home;
 
@@ -52,7 +54,7 @@ export const Header: React.FC<{ pathname: string }> = ({ pathname }) => {
             <HomeButton css={{ height: '80px' }} />
           </div>
         )}
-        {!isMobile && (
+        {(isTablet || isPC) && (
           <div css={nav}>
             <HeaderNav />
           </div>

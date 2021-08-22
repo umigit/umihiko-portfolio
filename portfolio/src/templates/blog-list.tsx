@@ -12,6 +12,62 @@ import { useMediaQuery } from 'react-responsive';
 import { moblie, tablet, PC } from '../styles/media-query';
 import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
 
+const breadcrumbContainer = css`
+  width: 100%;
+  max-width: 1280px;
+  padding: 0px 30px;
+  margin: 0 auto;
+`;
+
+const blogPanelList = css`
+  width: 100%;
+  max-width: 1280px;
+  padding: 0px 15px 113px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const blogPanelListMobile = css`
+  width: 100%;
+  max-width: 1280px;
+  padding: 0px 10px 67px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const blogPanelContainer = css`
+  width: calc(100% / 3);
+  padding: 15px;
+`;
+
+const blogPanelContainerTablet = css`
+  width: calc(100% / 2);
+  padding: 15px;
+`;
+
+const blogPanelContainerMobile = css`
+  width: 100%;
+  padding: 10px 0;
+`;
+
+const paginationContainer = css`
+  padding: 30px 0px 45px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+
+const paginationContainerMobile = css`
+  padding: 15px 0px 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+`;
+
 export type Props = PageProps<GetBlogPostsQuery, SitePageContext>;
 
 const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
@@ -37,15 +93,44 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
 
   return (
     <Layout pathname={location.pathname}>
+      {/* Bleadcrumb */}
+      <div css={breadcrumbContainer}>
+        <Breadcrumb pageContext={pageContext} />
+      </div>
+
+      {/* Panel List */}
       {isMobile && (
-        <MobileBlogListLayout pageContext={pageContext}>
-          {blogPostPanels}
-        </MobileBlogListLayout>
+        <div css={blogPanelListMobile}>
+          {blogPostPanels.map((panel) => (
+            <div css={blogPanelContainerMobile}>{panel}</div>
+          ))}
+        </div>
+      )}
+      {isTablet && (
+        <div css={blogPanelList}>
+          {blogPostPanels.map((panel) => (
+            <div css={blogPanelContainerTablet}>{panel}</div>
+          ))}
+        </div>
+      )}
+      {isPC && (
+        <div css={blogPanelList}>
+          {blogPostPanels.map((panel) => (
+            <div css={blogPanelContainer}>{panel}</div>
+          ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {isMobile && (
+        <div css={paginationContainerMobile}>
+          <MobilePagination pageContext={pageContext} />
+        </div>
       )}
       {(isTablet || isPC) && (
-        <BlogListLayout pageContext={pageContext}>
-          {blogPostPanels}
-        </BlogListLayout>
+        <div css={paginationContainer}>
+          <Pagination pageContext={pageContext} />
+        </div>
       )}
     </Layout>
   );

@@ -1,9 +1,8 @@
 import React from 'react';
-import { PageProps } from 'gatsby';
 import { css } from '@emotion/react';
 import { MobilePagination } from './mobile-pagination';
 import { Breadcrumb } from './breadcrumb';
-import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
+import { SitePageContext } from '../../types/graphql-types';
 
 const breadcrumbContainer = css`
   width: 100%;

@@ -191,6 +191,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
           </div>
         </div>
       )}
+
       {(isTablet || isPC) && (
         <div>
           <div css={breadcrumbConatiner}>
