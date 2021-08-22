@@ -72,6 +72,13 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
 
   return (
     <Layout pathname={location.pathname}>
+      <p
+        css={css`
+          color: white;
+        `}
+      >
+        {window.innerWidth}
+      </p>
       {isMobile ? (
         <MobileBlogListLayout pageContext={pageContext}>
           {blogPostPanels}
