@@ -15,6 +15,12 @@ const container = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
+`;
+
+const panelContainer = css`
+  padding: 15px 30px;
+  transform: translateY(-40px);
 `;
 
 const panelContainerMobile = css`
@@ -109,22 +115,24 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
           </div>
         )}
         {(isTablet || isPC) && (
-          <div css={panel}>
-            <StaticImage
-              css={image}
-              src='../images/profile.jpg'
-              alt='profile'
-            />
+          <div css={panelContainer}>
+            <div css={panel}>
+              <StaticImage
+                css={image}
+                src='../images/profile.jpg'
+                alt='profile'
+              />
 
-            <div css={text}>
-              <p>
-                <h2>
-                  {user.profiles.find((p) => p.locale === 'ja')?.nickname}
-                </h2>
-                {user.profiles.find((p) => p.locale === 'ja')?.summary}
-              </p>
-              <div css={accounts}>
-                <Accounts />
+              <div css={text}>
+                <p>
+                  <h2>
+                    {user.profiles.find((p) => p.locale === 'ja')?.nickname}
+                  </h2>
+                  {user.profiles.find((p) => p.locale === 'ja')?.summary}
+                </p>
+                <div css={accounts}>
+                  <Accounts />
+                </div>
               </div>
             </div>
           </div>

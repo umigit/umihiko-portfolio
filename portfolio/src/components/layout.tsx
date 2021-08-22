@@ -2,7 +2,6 @@ import React from 'react';
 import 'modern-css-reset';
 import { css } from '@emotion/react';
 import { StaticImage } from 'gatsby-plugin-image';
-import Div100vh, { use100vh } from 'react-div-100vh';
 import { Header } from './header';
 import { MobileNav } from './mobile-nav';
 import { useMediaQuery } from 'react-responsive';
@@ -12,13 +11,14 @@ import '../styles/global.css';
 const main = css`
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
 const image = css`
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   position: fixed;
   top: 0;
 `;
@@ -28,6 +28,7 @@ const mainContainer = css`
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 const mainContainerMobile = css`
@@ -42,7 +43,6 @@ export const Layout: React.FC<{ pathname: string }> = ({
   const isMobile = useMediaQuery(moblie);
   const isTablet = useMediaQuery(tablet);
   const isPC = useMediaQuery(PC);
-  const minHeight = use100vh() || '100vh';
 
   return (
     <>
