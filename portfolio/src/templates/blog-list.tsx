@@ -9,7 +9,7 @@ import { Breadcrumb } from '../components/breadcrumb';
 import { BlogListLayout } from '../components/blog-list-layout';
 import { MobileBlogListLayout } from '../components/mobile-blog-list-layout';
 import { useMediaQuery } from 'react-responsive';
-import { moblie } from '../styles/media-query';
+import { moblie, PC } from '../styles/media-query';
 import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
 
 export type Props = PageProps<GetBlogPostsQuery, SitePageContext>;
@@ -18,6 +18,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPosts = data.portfolio.blogPosts?.edges;
   const currentPage = pageContext.currentPage;
   const isMobile = useMediaQuery(moblie);
+  const isPC = useMediaQuery(PC);
 
   if (!blogPosts || !currentPage) {
     return (
@@ -42,12 +43,19 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
       >
         {isMobile ? 'mobile' : 'no mobile'}
       </p>
+      <p
+        css={css`
+          color: white;
+        `}
+      >
+        {isPC ? 'PC' : 'no PC'}
+      </p>
       {isMobile && (
         <MobileBlogListLayout pageContext={pageContext}>
           {blogPostPanels}
         </MobileBlogListLayout>
       )}
-      {!isMobile && (
+      {isPC && (
         <BlogListLayout pageContext={pageContext}>
           {blogPostPanels}
         </BlogListLayout>

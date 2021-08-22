@@ -12,9 +12,6 @@ services:
       - ./portfolio:/portfolio
       - node_modules_gatsby:/portfolio/node_modules
       - cache:/portfolio/.cache
-    # ports:
-    #   - 3000:8000
-    #   - 40000:40000
     network_mode: host
     stdin_open: true
     tty: true
