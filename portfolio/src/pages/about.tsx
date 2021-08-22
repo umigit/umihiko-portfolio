@@ -15,7 +15,17 @@ const container = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+`;
+
+const panelContainerMobile = css`
+  width: 100%;
+  position: absolute;
+  top: -60px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 `;
 
 const panel = css`
@@ -29,7 +39,6 @@ const panel = css`
 const panelMobile = css`
   ${panel}
   width: 100%;
-  margin: 0 10px;
   display: block;
 `;
 
@@ -84,22 +93,24 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
     <Layout pathname={location.pathname}>
       <div css={container}>
         {isMobile && (
-          <div css={panelMobile}>
-            <div css={textMobile}>
-              <p>
-                <StaticImage
-                  css={imageMobile}
-                  height={100}
-                  src='../images/profile.jpg'
-                  alt='profile'
-                />
-                <h2>
-                  {user.profiles.find((p) => p.locale === 'ja')?.nickname}
-                </h2>
-                {user.profiles.find((p) => p.locale === 'ja')?.summary}
-              </p>
-              <div css={accounts}>
-                <Accounts />
+          <div css={panelContainerMobile}>
+            <div css={panelMobile}>
+              <div css={textMobile}>
+                <p>
+                  <StaticImage
+                    css={imageMobile}
+                    height={100}
+                    src='../images/profile.jpg'
+                    alt='profile'
+                  />
+                  <h2>
+                    {user.profiles.find((p) => p.locale === 'ja')?.nickname}
+                  </h2>
+                  {user.profiles.find((p) => p.locale === 'ja')?.summary}
+                </p>
+                <div css={accounts}>
+                  <Accounts />
+                </div>
               </div>
             </div>
           </div>
