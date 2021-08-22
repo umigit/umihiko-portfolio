@@ -77,7 +77,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
           color: white;
         `}
       >
-        {window.innerWidth}
+        {isMobile ? 'mobile' : 'no mobile'}
       </p>
       {isMobile ? (
         <MobileBlogListLayout pageContext={pageContext}>
