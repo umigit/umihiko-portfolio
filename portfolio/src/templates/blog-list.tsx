@@ -12,43 +12,6 @@ import { useMediaQuery } from 'react-responsive';
 import { moblie } from '../styles/media-query';
 import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
 
-const breadcrumbContainer = css`
-  width: 100%;
-  max-width: 1280px;
-  padding: 0px 30px;
-  margin: 0 auto;
-`;
-
-const blogPanelContainer = css`
-  width: 100%;
-  max-width: 1280px;
-  padding: 0px 15px 113px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const blogPanelContainerMobile = css`
-  ${blogPanelContainer}
-  padding: 0px 10px 67px;
-`;
-
-const paginationContainer = css`
-  padding: 30px 0px 45px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-
-const paginationContainerMobile = css`
-  padding: 15px 0px 20px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 60px;
-`;
-
 export type Props = PageProps<GetBlogPostsQuery, SitePageContext>;
 
 const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
