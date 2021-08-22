@@ -7,7 +7,7 @@ import { colors } from '../styles/colors';
 import { Accounts } from '../components/accounts';
 import { GetProfileQuery, SitePageContext } from '../../types/graphql-types';
 import { useMediaQuery } from 'react-responsive';
-import { moblie } from '../styles/media-query';
+import { moblie, tablet, PC } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -73,15 +73,17 @@ export type Props = PageProps<GetProfileQuery, SitePageContext>;
 const AboutPage: React.FC<Props> = ({ data, location }) => {
   const user = data.portfolio.user;
   const isMobile = useMediaQuery(moblie);
+  const isTablet = useMediaQuery(tablet);
+  const isPC = useMediaQuery(PC);
 
   if (!user) {
     return <Layout pathname={location.pathname}></Layout>;
   }
 
-  if (isMobile) {
-    return (
-      <Layout pathname={location.pathname}>
-        <div css={container}>
+  return (
+    <Layout pathname={location.pathname}>
+      <div css={container}>
+        {isMobile && (
           <div css={panelMobile}>
             <div css={textMobile}>
               <p>
@@ -101,27 +103,28 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
               </div>
             </div>
           </div>
-        </div>
-      </Layout>
-    );
-  }
+        )}
+        {(isTablet || isPC) && (
+          <div css={panel}>
+            <StaticImage
+              css={image}
+              src='../images/profile.jpg'
+              alt='profile'
+            />
 
-  return (
-    <Layout pathname={location.pathname}>
-      <div css={container}>
-        <div css={panel}>
-          <StaticImage css={image} src='../images/profile.jpg' alt='profile' />
-
-          <div css={text}>
-            <p>
-              <h2>{user.profiles.find((p) => p.locale === 'ja')?.nickname}</h2>
-              {user.profiles.find((p) => p.locale === 'ja')?.summary}
-            </p>
-            <div css={accounts}>
-              <Accounts />
+            <div css={text}>
+              <p>
+                <h2>
+                  {user.profiles.find((p) => p.locale === 'ja')?.nickname}
+                </h2>
+                {user.profiles.find((p) => p.locale === 'ja')?.summary}
+              </p>
+              <div css={accounts}>
+                <Accounts />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </Layout>
   );

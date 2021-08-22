@@ -6,7 +6,7 @@ import { SideMenu } from '../components/side-menu';
 import { Markdown } from '../components/markdown';
 import { Breadcrumb } from '../components/breadcrumb';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet } from '../styles/media-query';
+import { moblie, tablet, PC } from '../styles/media-query';
 import { colors } from '../styles/colors';
 import {
   GetBlogPostBySlugQuery,
@@ -152,7 +152,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPost = data.portfolio.blogPostBySlug;
   const isMobile = useMediaQuery(moblie);
   const isTablet = useMediaQuery(tablet);
-  const isPC = !isMobile && !isTablet;
+  const isPC = useMediaQuery(PC);
   const imageTitle = blogPost?.image?.title || 'no image';
   const imageUrl = blogPost?.image?.url || '../images/noimage.png';
 
@@ -182,7 +182,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
 
   return (
     <Layout pathname={location.pathname}>
-      {isMobile ? (
+      {isMobile && (
         <div>
           <div css={blogPostContainer}>
             <div css={blogPostPanelContainerMobile}>
@@ -190,7 +190,8 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
             </div>
           </div>
         </div>
-      ) : (
+      )}
+      {(isTablet || isPC) && (
         <div>
           <div css={breadcrumbConatiner}>
             <Breadcrumb pageContext={pageContext} />

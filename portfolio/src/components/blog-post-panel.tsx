@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { colors } from '../styles/colors';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet } from '../styles/media-query';
+import { moblie, tablet, PC } from '../styles/media-query';
 import { Portfolio_BlogPostType } from '../../types/graphql-types';
 
 const panelContainer = css`
@@ -91,7 +91,7 @@ export const BlogPostPanel: React.FC<{ post: BlogPostPanelType }> = ({
 }) => {
   const isMobile = useMediaQuery(moblie);
   const isTablet = useMediaQuery(tablet);
-  const isPC = !isMobile && !isTablet;
+  const isPC = useMediaQuery(PC);
   const panelContainerCss = isMobile
     ? panelContainerMobile
     : isTablet

@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { StaticImage } from 'gatsby-plugin-image';
 import { Layout } from '../components/layout';
 import { useMediaQuery } from 'react-responsive';
-import { moblie } from '../styles/media-query';
+import { moblie, tablet, PC } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -25,15 +25,18 @@ const imageMobile = css`
 
 const IndexPage: React.FC<PageProps> = ({ location }) => {
   const isMobile = useMediaQuery(moblie);
+  const isTablet = useMediaQuery(tablet);
+  const isPC = useMediaQuery(PC);
 
   return (
     <Layout pathname={location.pathname}>
       <div css={container}>
-        {isMobile ? (
+        {isMobile && (
           <div css={imageMobile}>
             <StaticImage src='../images/umihiko_logo.png' alt='logo' />
           </div>
-        ) : (
+        )}
+        {(isTablet || isPC) && (
           <div css={image}>
             <StaticImage src='../images/umihiko_logo.png' alt='logo' />
           </div>
