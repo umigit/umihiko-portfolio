@@ -46,7 +46,7 @@ export const Layout: React.FC<{ pathname: string }> = ({
 
   return (
     <>
-      <div css={main} style={{ minHeight: minHeight }}>
+      <div css={main}>
         <StaticImage
           css={image}
           src='../images/bruno_bg.jpg'
