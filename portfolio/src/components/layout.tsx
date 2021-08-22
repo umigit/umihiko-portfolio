@@ -2,6 +2,7 @@ import React from 'react';
 import 'modern-css-reset';
 import { css } from '@emotion/react';
 import { StaticImage } from 'gatsby-plugin-image';
+import Div100vh, { use100vh } from 'react-div-100vh';
 import { Header } from './header';
 import { MobileNav } from './mobile-nav';
 import { useMediaQuery } from 'react-responsive';
@@ -11,16 +12,18 @@ import '../styles/global.css';
 const main = css`
   width: 100%;
   height: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
-const image = css`
-  width: 100vw;
-  height: 100vh;
+const imageContainer = css`
   position: fixed;
   top: 0;
+`;
+
+const image = css`
+  width: 100vw;
+  height: 100%;
 `;
 
 const mainContainer = css`
@@ -43,15 +46,18 @@ export const Layout: React.FC<{ pathname: string }> = ({
   const isMobile = useMediaQuery(moblie);
   const isTablet = useMediaQuery(tablet);
   const isPC = useMediaQuery(PC);
+  const minHeight = use100vh() || '100vh';
 
   return (
     <>
-      <div css={main}>
-        <StaticImage
-          css={image}
-          src='../images/bruno_bg.jpg'
-          alt='background'
-        />
+      <div css={main} style={{ minHeight: minHeight }}>
+        <Div100vh css={imageContainer}>
+          <StaticImage
+            css={image}
+            src='../images/bruno_bg.jpg'
+            alt='background'
+          />
+        </Div100vh>
         <Header pathname={pathname} />
         {isMobile && <div css={mainContainerMobile}>{children}</div>}
         {(isTablet || isPC) && <div css={mainContainer}>{children}</div>}
