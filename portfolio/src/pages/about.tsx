@@ -18,14 +18,7 @@ const container = css`
 `;
 
 const panelContainerMobile = css`
-  width: 100%;
-  position: absolute;
-  top: -60px;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
+  padding: 15px 10px;
 `;
 
 const panel = css`
