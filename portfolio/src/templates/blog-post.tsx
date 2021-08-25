@@ -107,6 +107,15 @@ const body = css`
 
   p {
     margin-bottom: 1rem;
+
+    code {
+      margin: 0 0.125rem;
+      padding: 0rem 0.25rem;
+      border-radius: 4px;
+      background-color: rgb(60, 60, 60);
+      display: inline-block;
+      transform: translateY(-1px);
+    }
   }
 
   p:last-child {
