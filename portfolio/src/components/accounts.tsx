@@ -1,7 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { Link } from 'gatsby';
+
 import { StaticImage } from 'gatsby-plugin-image';
+import { OutboundLink } from 'gatsby-plugin-google-analytics';
 
 const iconList = css`
   a {
@@ -16,22 +17,25 @@ const icon = css`
 export const Accounts: React.FC = () => {
   return (
     <div css={iconList}>
-      <a href='https://github.com/umigit' target='_blank'>
+      <OutboundLink href='https://github.com/umigit' target='_blank'>
         <StaticImage
           css={icon}
           height={60}
           src='../images/github.png'
           alt='github'
         />
-      </a>
-      <a href='https://www.wantedly.com/id/umihiko_amanuma' target='_blank'>
+      </OutboundLink>
+      <OutboundLink
+        href='https://www.wantedly.com/id/umihiko_amanuma'
+        target='_blank'
+      >
         <StaticImage
           css={icon}
           height={60}
           src='../images/wantedly.png'
           alt='wantedly'
         />
-      </a>
+      </OutboundLink>
     </div>
   );
 };

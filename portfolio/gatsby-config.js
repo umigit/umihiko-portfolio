@@ -4,6 +4,14 @@ module.exports = {
     title: 'Umihiko',
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GA_TRACKING_ID,
+        head: true,
+        respectDNT: true,
+      },
+    },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,
