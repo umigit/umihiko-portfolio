@@ -1,6 +1,8 @@
 const path = require('path');
 const groupBy = require('lodash/groupBy');
 
+const PAGE_SIZE = 6;
+
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
 
@@ -23,14 +25,13 @@ exports.createPages = async ({ actions, graphql }) => {
 
   const response = await graphql(query);
   const edges = response.data.portfolio.blogPosts.edges;
-  const pageSize = 6;
-  const numberOfPages = Math.ceil(edges.length / pageSize);
+  const numberOfPages = Math.ceil(edges.length / PAGE_SIZE);
 
   // create blog list page
   [...Array(numberOfPages)].forEach((_, index) => {
     const prefix = `/blog`;
     const page = index + 1;
-    const cursorEdge = edges[pageSize * index - 1];
+    const cursorEdge = edges[PAGE_SIZE * index - 1];
     const after = cursorEdge ? cursorEdge.cursor : '';
 
     createPage({
@@ -41,7 +42,7 @@ exports.createPages = async ({ actions, graphql }) => {
         prefix: prefix,
         currentPage: page,
         numberOfPages: numberOfPages,
-        first: pageSize,
+        first: PAGE_SIZE,
         after: after,
         hasNextPage: page < numberOfPages,
         hasPreviousPage: page > 1,
@@ -55,12 +56,12 @@ exports.createPages = async ({ actions, graphql }) => {
 
   categories.forEach((key) => {
     const edges = edgesByCategory[key];
-    const numberOfPages = Math.ceil(edges.length / pageSize);
+    const numberOfPages = Math.ceil(edges.length / PAGE_SIZE);
 
     [...Array(numberOfPages)].forEach((_, index) => {
       const prefix = `/blog/category/${key}`;
       const page = index + 1;
-      const cursorEdge = edges[pageSize * index - 1];
+      const cursorEdge = edges[PAGE_SIZE * index - 1];
       const after = cursorEdge ? cursorEdge.cursor : '';
 
       createPage({
@@ -71,7 +72,7 @@ exports.createPages = async ({ actions, graphql }) => {
           prefix: prefix,
           currentPage: page,
           numberOfPages: numberOfPages,
-          first: pageSize,
+          first: PAGE_SIZE,
           after: after,
           hasNextPage: page < numberOfPages,
           hasPreviousPage: page > 1,

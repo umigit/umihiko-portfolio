@@ -734,7 +734,7 @@ export type Portfolio_BlogPostType = Portfolio_Node & {
   title: Scalars['String'];
   introduction: Scalars['String'];
   markdown: Scalars['String'];
-  publishedAt: Scalars['Portfolio_DateTime'];
+  publishedAt?: Maybe<Scalars['Portfolio_DateTime']>;
   updatedAt: Scalars['Portfolio_DateTime'];
   /** The ID of the object. */
   id: Scalars['ID'];
