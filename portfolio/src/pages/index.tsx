@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageProps } from 'gatsby';
+import { PageProps, Link } from 'gatsby';
 import { css } from '@emotion/react';
 import { StaticImage } from 'gatsby-plugin-image';
 import { Layout } from '../components/layout';
@@ -33,12 +33,16 @@ const IndexPage: React.FC<PageProps> = ({ location }) => {
       <div css={container}>
         {isMobile && (
           <div css={imageMobile}>
-            <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+            <Link to='/about'>
+              <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+            </Link>
           </div>
         )}
         {(isTablet || isPC) && (
           <div css={image}>
-            <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+            <Link to='/about'>
+              <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+            </Link>
           </div>
         )}
       </div>
