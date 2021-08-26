@@ -6,8 +6,6 @@ import { BlogPostPanel } from '../components/blog-post-panel';
 import { Pagination } from '../components/pagination';
 import { MobilePagination } from '../components/mobile-pagination';
 import { Breadcrumb } from '../components/breadcrumb';
-import { BlogListLayout } from '../components/blog-list-layout';
-import { MobileBlogListLayout } from '../components/mobile-blog-list-layout';
 import { useMediaQuery } from 'react-responsive';
 import { moblie, tablet, PC } from '../styles/media-query';
 import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
