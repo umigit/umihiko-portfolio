@@ -27,7 +27,7 @@ const panel = css`
 
 const image = css`
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1.91 / 1;
   object-fit: cover;
 `;
 

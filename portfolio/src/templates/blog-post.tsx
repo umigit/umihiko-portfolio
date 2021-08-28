@@ -25,7 +25,7 @@ const image = css`
   margin: 1.5rem 0;
   img {
     width: 100%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 1.91/1;
     object-fit: cover;
   }
 `;
