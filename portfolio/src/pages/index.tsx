@@ -31,7 +31,7 @@ const IndexPage: React.FC<PageProps> = ({ location }) => {
 
   return (
     <Layout pathname={location.pathname}>
-      <SEO pathname={location.pathname} title={'タイトル'} />
+      <SEO pathname={location.pathname} />
       <div css={container}>
         {isMobile && (
           <div css={imageMobile}>
