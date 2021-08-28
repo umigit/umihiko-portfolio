@@ -28,6 +28,7 @@ export const SEO: React.FC<Props> = ({
 
   return (
     <Helmet title={metaTitle!}>
+      <html prefix='og: http://ogp.me/ns#' />
       <meta name='description' content={metaDescription!} />
       <meta name='image' content={metaImage!} />
       {metaUrl && <meta property='og:url' content={metaUrl!} />}
