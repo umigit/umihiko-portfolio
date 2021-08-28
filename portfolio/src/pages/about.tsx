@@ -3,6 +3,7 @@ import { PageProps, graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import { StaticImage } from 'gatsby-plugin-image';
 import { Layout } from '../components/layout';
+import { SEO } from '../components/seo';
 import { colors } from '../styles/colors';
 import { Accounts } from '../components/accounts';
 import { GetProfileQuery, SitePageContext } from '../../types/graphql-types';
@@ -83,13 +84,15 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
   const isMobile = useMediaQuery(moblie);
   const isTablet = useMediaQuery(tablet);
   const isPC = useMediaQuery(PC);
+  const profile = user!.profiles.find((p) => p.locale === 'ja');
 
-  if (!user) {
+  if (!profile) {
     return <Layout pathname={location.pathname}></Layout>;
   }
 
   return (
     <Layout pathname={location.pathname}>
+      <SEO pathname={location.pathname} description={profile.summary} />
       <div css={container}>
         {isMobile && (
           <div css={panelContainerMobile}>
@@ -102,10 +105,8 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
                     src='../images/profile.jpg'
                     alt='profile'
                   />
-                  <h2>
-                    {user.profiles.find((p) => p.locale === 'ja')?.nickname}
-                  </h2>
-                  {user.profiles.find((p) => p.locale === 'ja')?.summary}
+                  <h2>{profile.nickname}</h2>
+                  {profile.summary}
                 </p>
                 <div css={accounts}>
                   <Accounts />
@@ -125,10 +126,8 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
 
               <div css={text}>
                 <p>
-                  <h2>
-                    {user.profiles.find((p) => p.locale === 'ja')?.nickname}
-                  </h2>
-                  {user.profiles.find((p) => p.locale === 'ja')?.summary}
+                  <h2>{profile.nickname}</h2>
+                  {profile.summary}
                 </p>
                 <div css={accounts}>
                   <Accounts />

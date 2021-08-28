@@ -2,6 +2,7 @@ import React from 'react';
 import { PageProps, graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import { Layout } from '../components/layout';
+import { SEO } from '../components/seo';
 import { SideMenu } from '../components/side-menu';
 import { Markdown } from '../components/markdown';
 import { Breadcrumb } from '../components/breadcrumb';
@@ -25,7 +26,7 @@ const image = css`
   margin: 1.5rem 0;
   img {
     width: 100%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 1.91/1;
     object-fit: cover;
   }
 `;
@@ -191,6 +192,13 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
 
   return (
     <Layout pathname={location.pathname}>
+      <SEO
+        pathname={location.pathname}
+        title={blogPost.title}
+        description={blogPost.introduction}
+        image={imageUrl}
+        article={true}
+      />
       {isMobile && (
         <div>
           <div css={blogPostContainer}>
