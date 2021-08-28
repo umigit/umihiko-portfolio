@@ -3,6 +3,7 @@ import { PageProps, Link } from 'gatsby';
 import { css } from '@emotion/react';
 import { StaticImage } from 'gatsby-plugin-image';
 import { Layout } from '../components/layout';
+import { SEO } from '../components/seo';
 import { useMediaQuery } from 'react-responsive';
 import { moblie, tablet, PC } from '../styles/media-query';
 
@@ -30,6 +31,7 @@ const IndexPage: React.FC<PageProps> = ({ location }) => {
 
   return (
     <Layout pathname={location.pathname}>
+      <SEO pathname={location.pathname} title={'タイトル'} />
       <div css={container}>
         {isMobile && (
           <div css={imageMobile}>
