@@ -41,6 +41,7 @@ export const SEO: React.FC<Props> = ({
       )}
       {metaImage && <meta name='og:image' content={metaImage} />}
       {/* twitter */}
+      <meta name='twitter:card' content='summary_large_image' />
       {metaTitle && <meta name='twitter:title' content={metaTitle} />}
       {metaDescription && (
         <meta name='twitter:description' content={metaDescription} />
