@@ -1,17 +1,23 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: process.env.SITE_URL,
+    url: process.env.SITE_URL,
     title: 'Umihiko',
+    description:
+      '天沼海彦のプロフィール兼ブログ。プログラミングや日常のことについて書いてあります。',
+    image: `${process.env.SITE_URL}/umihiko_index.jpg`,
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingId: process.env.GA_TRACKING_ID,
-        head: true,
-        respectDNT: true,
+        trackingIds: [process.env.GA_TRACKING_ID],
+        pluginConfig: {
+          head: true,
+          respectDNT: true,
+        },
       },
     },
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,

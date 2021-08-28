@@ -2,6 +2,7 @@ import React from 'react';
 import { PageProps, graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import { Layout } from '../components/layout';
+import { SEO } from '../components/seo';
 import { BlogPostPanel } from '../components/blog-post-panel';
 import { Pagination } from '../components/pagination';
 import { MobilePagination } from '../components/mobile-pagination';
@@ -74,6 +75,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const isMobile = useMediaQuery(moblie);
   const isTablet = useMediaQuery(tablet);
   const isPC = useMediaQuery(PC);
+  const title = `記事一覧：${pageContext.category || '全カテゴリ'}`;
 
   if (!blogPosts || !currentPage) {
     return (
@@ -85,12 +87,12 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
 
   const blogPostPanels = blogPosts.map(
     (edge) =>
-      edge &&
-      edge.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
+      edge?.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
   );
 
   return (
     <Layout pathname={location.pathname}>
+      <SEO pathname={location.pathname} title={title} />
       {/* Bleadcrumb */}
       <div css={breadcrumbContainer}>
         <Breadcrumb pageContext={pageContext} />

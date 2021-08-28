@@ -5,6 +5,7 @@ import { CodeBlock } from './codeblock';
 type Props = {
   markdown: string;
 };
+
 export const Markdown: React.FC<Props> = ({ markdown }) => {
   return (
     <ReactMarkdown
