@@ -25,10 +25,26 @@ const panel = css`
   color: ${colors.white};
 `;
 
+const imageContainer = css`
+  width: 100%;
+  position: relative;
+
+  ::before {
+    content: '';
+    display: block;
+    padding-bottom: calc(100% / 1.91);
+  }
+`;
+
 const image = css`
   width: 100%;
-  aspect-ratio: 1.91 / 1;
+  height: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 `;
 
 const text = css`
@@ -85,7 +101,9 @@ export const BlogPostPanel: React.FC<{ post: BlogPostPanelType }> = ({
     <div css={panelContainer} key={post.slug}>
       <Link to={`/blog/entry/${post.slug}`}>
         <div css={panel}>
-          <img css={image} src={imageUrl} alt={imageTitle} />
+          <div css={imageContainer}>
+            <img css={image} src={imageUrl} alt={imageTitle} />
+          </div>
           <div css={text}>
             <h1>{post.title}</h1>
             <p>{post.introduction}</p>

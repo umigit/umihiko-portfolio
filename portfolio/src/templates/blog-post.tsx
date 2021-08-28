@@ -21,13 +21,26 @@ const breadcrumbConatiner = css`
   margin: 0 auto;
 `;
 
-const image = css`
+const imageContainer = css`
   width: 100%;
   margin: 1.5rem 0;
+  position: relative;
+
+  ::before {
+    content: '';
+    display: block;
+    padding-bottom: calc(100% / 1.91);
+  }
+
   img {
     width: 100%;
-    aspect-ratio: 1.91/1;
+    height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 `;
 
@@ -178,7 +191,7 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
       </p>
       <h1>{blogPost.title}</h1>
 
-      <div css={image}>
+      <div css={imageContainer}>
         <img src={imageUrl} alt={imageTitle} />
       </div>
 
