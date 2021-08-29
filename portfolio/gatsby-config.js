@@ -7,7 +7,6 @@ module.exports = {
     image: `${process.env.SITE_URL}/umihiko_index.jpg`,
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
@@ -48,5 +47,6 @@ module.exports = {
         icon: './src/images/icon.png',
       },
     },
+    `gatsby-plugin-react-helmet`,
   ],
 };

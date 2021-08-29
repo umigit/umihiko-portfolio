@@ -38,21 +38,45 @@ export const SEO: React.FC<Props> = ({
           property: 'og:image',
           content: metaImage,
         },
+        {
+          property: 'og:site_name',
+          content: 'Umihiko',
+        },
+        {
+          property: 'og:type',
+          content: metaType,
+        },
+        {
+          property: 'og:url',
+          content: metaUrl,
+        },
+        {
+          property: 'og:title',
+          content: metaTitle,
+        },
+        {
+          property: 'og:description',
+          content: metaDescription,
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary_large_image',
+        },
+        {
+          name: 'twitter:title',
+          content: metaTitle,
+        },
+        {
+          name: 'twitter:description',
+          content: metaDescription,
+        },
+        {
+          name: 'twitter:image',
+          content: metaImage,
+        },
       ]}
     >
       <html prefix='og: http://ogp.me/ns#' />
-      {/* <meta name='description' content={metaDescription} /> */}
-      <meta property='og:site_name' content='Umihiko' />
-      <meta property='og:type' content={metaType} />
-      <meta property='og:url' content={metaUrl} />
-      <meta property='og:title' content={metaTitle} />
-      <meta property='og:description' content={metaDescription} />
-      <meta property='og:image' content={metaImage} />
-      {/* twitter */}
-      <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:title' content={metaTitle} />
-      <meta name='twitter:description' content={metaDescription} />
-      <meta name='twitter:image' content={metaImage} />
     </Helmet>
   );
 };
