@@ -204,43 +204,44 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   );
 
   return (
-    <Layout pathname={location.pathname}>
+    <>
       <SEO
         pathname={location.pathname}
         title={blogPost.title}
         description={blogPost.introduction}
         image={imageUrl}
-        article={true}
       />
-      {isMobile && (
-        <div>
-          <div css={blogPostContainer}>
-            <div css={blogPostPanelContainerMobile}>
-              <div css={blogPostPanelMobile}>{blogBody}</div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {(isTablet || isPC) && (
-        <div>
-          <div css={breadcrumbConatiner}>
-            <Breadcrumb pageContext={pageContext} />
-          </div>
-
-          <div css={blogPostContainer}>
-            <div css={blogPostPanelContainer}>
-              <div css={blogPostPanel}>{blogBody}</div>
-            </div>
-            {isPC && (
-              <div css={sideMenuContainer}>
-                <SideMenu pageContext={pageContext} />
+      <Layout pathname={location.pathname}>
+        {isMobile && (
+          <div>
+            <div css={blogPostContainer}>
+              <div css={blogPostPanelContainerMobile}>
+                <div css={blogPostPanelMobile}>{blogBody}</div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      )}
-    </Layout>
+        )}
+
+        {(isTablet || isPC) && (
+          <div>
+            <div css={breadcrumbConatiner}>
+              <Breadcrumb pageContext={pageContext} />
+            </div>
+
+            <div css={blogPostContainer}>
+              <div css={blogPostPanelContainer}>
+                <div css={blogPostPanel}>{blogBody}</div>
+              </div>
+              {isPC && (
+                <div css={sideMenuContainer}>
+                  <SideMenu pageContext={pageContext} />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </Layout>
+    </>
   );
 };
 

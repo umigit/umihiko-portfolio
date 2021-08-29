@@ -91,48 +91,50 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   );
 
   return (
-    <Layout pathname={location.pathname}>
+    <>
       <SEO pathname={location.pathname} title={title} />
-      {/* Bleadcrumb */}
-      <div css={breadcrumbContainer}>
-        <Breadcrumb pageContext={pageContext} />
-      </div>
+      <Layout pathname={location.pathname}>
+        {/* Bleadcrumb */}
+        <div css={breadcrumbContainer}>
+          <Breadcrumb pageContext={pageContext} />
+        </div>
 
-      {/* Panel List */}
-      {isMobile && (
-        <div css={blogPanelListMobile}>
-          {blogPostPanels.map((panel) => (
-            <div css={blogPanelContainerMobile}>{panel}</div>
-          ))}
-        </div>
-      )}
-      {isTablet && (
-        <div css={blogPanelList}>
-          {blogPostPanels.map((panel) => (
-            <div css={blogPanelContainerTablet}>{panel}</div>
-          ))}
-        </div>
-      )}
-      {isPC && (
-        <div css={blogPanelList}>
-          {blogPostPanels.map((panel) => (
-            <div css={blogPanelContainer}>{panel}</div>
-          ))}
-        </div>
-      )}
+        {/* Panel List */}
+        {isMobile && (
+          <div css={blogPanelListMobile}>
+            {blogPostPanels.map((panel) => (
+              <div css={blogPanelContainerMobile}>{panel}</div>
+            ))}
+          </div>
+        )}
+        {isTablet && (
+          <div css={blogPanelList}>
+            {blogPostPanels.map((panel) => (
+              <div css={blogPanelContainerTablet}>{panel}</div>
+            ))}
+          </div>
+        )}
+        {isPC && (
+          <div css={blogPanelList}>
+            {blogPostPanels.map((panel) => (
+              <div css={blogPanelContainer}>{panel}</div>
+            ))}
+          </div>
+        )}
 
-      {/* Pagination */}
-      {isMobile && (
-        <div css={paginationContainerMobile}>
-          <MobilePagination pageContext={pageContext} />
-        </div>
-      )}
-      {(isTablet || isPC) && (
-        <div css={paginationContainer}>
-          <Pagination pageContext={pageContext} />
-        </div>
-      )}
-    </Layout>
+        {/* Pagination */}
+        {isMobile && (
+          <div css={paginationContainerMobile}>
+            <MobilePagination pageContext={pageContext} />
+          </div>
+        )}
+        {(isTablet || isPC) && (
+          <div css={paginationContainer}>
+            <Pagination pageContext={pageContext} />
+          </div>
+        )}
+      </Layout>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ type Props = {
   title?: string;
   description?: string;
   image?: string;
-  article?: boolean;
+  top?: boolean;
   pathname: string;
 };
 
@@ -15,7 +15,7 @@ export const SEO: React.FC<Props> = ({
   title,
   description,
   image,
-  article,
+  top,
   pathname,
 }) => {
   const { site }: Required<SeoQuery> = useStaticQuery(query);
@@ -24,7 +24,7 @@ export const SEO: React.FC<Props> = ({
   const metaDescription = description || site?.siteMetadata?.description!;
   const metaImage = image ? image : site?.siteMetadata?.image!;
   const metaUrl = `${site?.siteMetadata?.url!}${pathname}`;
-  const metaType = article ? 'article' : 'website';
+  const metaType = top ? 'website' : 'article';
 
   return (
     <Helmet

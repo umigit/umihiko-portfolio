@@ -91,53 +91,55 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
   }
 
   return (
-    <Layout pathname={location.pathname}>
+    <>
       <SEO pathname={location.pathname} description={profile.summary} />
-      <div css={container}>
-        {isMobile && (
-          <div css={panelContainerMobile}>
-            <div css={panelMobile}>
-              <div css={textMobile}>
-                <p>
-                  <StaticImage
-                    css={imageMobile}
-                    height={100}
-                    src='../images/profile.jpg'
-                    alt='profile'
-                  />
-                  <h2>{profile.nickname}</h2>
-                  {profile.summary}
-                </p>
-                <div css={accounts}>
-                  <Accounts />
+      <Layout pathname={location.pathname}>
+        <div css={container}>
+          {isMobile && (
+            <div css={panelContainerMobile}>
+              <div css={panelMobile}>
+                <div css={textMobile}>
+                  <p>
+                    <StaticImage
+                      css={imageMobile}
+                      height={100}
+                      src='../images/profile.jpg'
+                      alt='profile'
+                    />
+                    <h2>{profile.nickname}</h2>
+                    {profile.summary}
+                  </p>
+                  <div css={accounts}>
+                    <Accounts />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-        {(isTablet || isPC) && (
-          <div css={panelContainer}>
-            <div css={panel}>
-              <StaticImage
-                css={image}
-                src='../images/profile.jpg'
-                alt='profile'
-              />
+          )}
+          {(isTablet || isPC) && (
+            <div css={panelContainer}>
+              <div css={panel}>
+                <StaticImage
+                  css={image}
+                  src='../images/profile.jpg'
+                  alt='profile'
+                />
 
-              <div css={text}>
-                <p>
-                  <h2>{profile.nickname}</h2>
-                  {profile.summary}
-                </p>
-                <div css={accounts}>
-                  <Accounts />
+                <div css={text}>
+                  <p>
+                    <h2>{profile.nickname}</h2>
+                    {profile.summary}
+                  </p>
+                  <div css={accounts}>
+                    <Accounts />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    </Layout>
+          )}
+        </div>
+      </Layout>
+    </>
   );
 };
 

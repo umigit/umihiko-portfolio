@@ -30,25 +30,27 @@ const IndexPage: React.FC<PageProps> = ({ location }) => {
   const isPC = useMediaQuery(PC);
 
   return (
-    <Layout pathname={location.pathname}>
-      <SEO pathname={location.pathname} />
-      <div css={container}>
-        {isMobile && (
-          <div css={imageMobile}>
-            <Link to='/about'>
-              <StaticImage src='../images/umihiko_logo.png' alt='logo' />
-            </Link>
-          </div>
-        )}
-        {(isTablet || isPC) && (
-          <div css={image}>
-            <Link to='/about'>
-              <StaticImage src='../images/umihiko_logo.png' alt='logo' />
-            </Link>
-          </div>
-        )}
-      </div>
-    </Layout>
+    <>
+      <SEO pathname={location.pathname} top={true} />
+      <Layout pathname={location.pathname}>
+        <div css={container}>
+          {isMobile && (
+            <div css={imageMobile}>
+              <Link to='/about'>
+                <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+              </Link>
+            </div>
+          )}
+          {(isTablet || isPC) && (
+            <div css={image}>
+              <Link to='/about'>
+                <StaticImage src='../images/umihiko_logo.png' alt='logo' />
+              </Link>
+            </div>
+          )}
+        </div>
+      </Layout>
+    </>
   );
 };
 
