@@ -7,6 +7,7 @@ import { Header } from './header';
 import { MobileNav } from './mobile-nav';
 import { useMediaQuery } from 'react-responsive';
 import { moblie, tablet, PC } from '../styles/media-query';
+import { colors } from '../styles/colors';
 import '../styles/global.css';
 
 const main = css`
@@ -15,6 +16,15 @@ const main = css`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+
+  * {
+    color: ${colors.white};
+  }
+
+  a {
+    color: ${colors.orange};
+    text-decoration: none;
+  }
 `;
 
 const image = css`
