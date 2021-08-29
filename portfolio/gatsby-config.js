@@ -17,7 +17,6 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,
@@ -48,5 +47,6 @@ module.exports = {
         icon: './src/images/icon.png',
       },
     },
+    `gatsby-plugin-react-helmet`,
   ],
 };
