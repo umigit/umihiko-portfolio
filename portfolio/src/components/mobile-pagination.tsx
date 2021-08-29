@@ -69,12 +69,12 @@ export const MobilePagination: React.FC<Props> = ({ pageContext }) => {
   }
 
   const previousPagePath =
-    prefix + (currentPage > 2 ? `/${currentPage - 1}` : ``);
+    prefix + (currentPage > 2 ? `${currentPage - 1}/` : ``);
   const nextPagePath =
     prefix +
-    (currentPage < numberOfPages ? `/${currentPage + 1}` : `/${numberOfPages}`);
+    (currentPage < numberOfPages ? `${currentPage + 1}/` : `${numberOfPages}/`);
   const firstPagePath = `${prefix}`;
-  const lastPagePath = prefix + (numberOfPages > 1 ? `/${numberOfPages}` : ``);
+  const lastPagePath = prefix + (numberOfPages > 1 ? `${numberOfPages}/` : ``);
 
   const previous = [navigation, pageContext.hasPreviousPage ? null : disabled];
   const next = [navigation, pageContext.hasNextPage ? null : disabled];

@@ -29,13 +29,13 @@ exports.createPages = async ({ actions, graphql }) => {
 
   // create blog list page
   [...Array(numberOfPages)].forEach((_, index) => {
-    const prefix = `/blog`;
+    const prefix = `/blog/`;
     const page = index + 1;
     const cursorEdge = edges[PAGE_SIZE * index - 1];
     const after = cursorEdge ? cursorEdge.cursor : '';
 
     createPage({
-      path: page === 1 ? prefix : `${prefix}/${page}`,
+      path: page === 1 ? prefix : `${prefix}${page}/`,
       component: path.resolve('./src/templates/blog-list.tsx'),
       context: {
         category: null,
@@ -59,13 +59,13 @@ exports.createPages = async ({ actions, graphql }) => {
     const numberOfPages = Math.ceil(edges.length / PAGE_SIZE);
 
     [...Array(numberOfPages)].forEach((_, index) => {
-      const prefix = `/blog/category/${key}`;
+      const prefix = `/blog/category/${key}/`;
       const page = index + 1;
       const cursorEdge = edges[PAGE_SIZE * index - 1];
       const after = cursorEdge ? cursorEdge.cursor : '';
 
       createPage({
-        path: page === 1 ? prefix : `${prefix}/${page}`,
+        path: page === 1 ? prefix : `${prefix}${page}/`,
         component: path.resolve('./src/templates/blog-list.tsx'),
         context: {
           category: key,
@@ -83,16 +83,16 @@ exports.createPages = async ({ actions, graphql }) => {
 
   // create blog post page
   edges.forEach((edge, index) => {
-    const prefix = `/blog/entry`;
+    const prefix = `/blog/entry/`;
     const previousPath =
-      index > 0 ? `${prefix}/${edges[index - 1].node.slug}` : null;
+      index > 0 ? `${prefix}${edges[index - 1].node.slug}/` : null;
     const nextPath =
       index < edges.length - 1
-        ? `${prefix}/${edges[index + 1].node.slug}`
+        ? `${prefix}/${edges[index + 1].node.slug}/`
         : null;
 
     createPage({
-      path: `${prefix}/${edge.node.slug}`,
+      path: `${prefix}${edge.node.slug}/`,
       component: path.resolve('./src/templates/blog-post.tsx'),
       context: {
         title: edge.node.title,

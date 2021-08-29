@@ -24,10 +24,10 @@ const link = css`
 export const HeaderNav: React.FC = () => {
   return (
     <div css={navLink}>
-      <Link to='/about'>
+      <Link to='/about/'>
         <div css={link}>About</div>
       </Link>
-      <Link to='/blog'>
+      <Link to='/blog/'>
         <div css={link}>Blog</div>
       </Link>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, PageProps } from 'gatsby';
+import { PageProps } from 'gatsby';
 import { css } from '@emotion/react';
 import { Layout } from '../components/layout';
 

@@ -48,7 +48,7 @@ export const SideMenu: React.FC<Props> = ({ pageContext }) => {
 
             {categories.map((category, i) => (
               <div css={categoryLink} key={i}>
-                <Link to={`/blog/category/${category}`}>{category}</Link>
+                <Link to={`/blog/category/${category}/`}>{category}</Link>
               </div>
             ))}
           </div>

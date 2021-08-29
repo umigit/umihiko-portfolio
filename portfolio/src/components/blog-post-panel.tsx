@@ -99,7 +99,7 @@ export const BlogPostPanel: React.FC<{ post: BlogPostPanelType }> = ({
 
   return (
     <div css={panelContainer} key={post.slug}>
-      <Link to={`/blog/entry/${post.slug}`}>
+      <Link to={`/blog/entry/${post.slug}/`}>
         <div css={panel}>
           <div css={imageContainer}>
             <img css={image} src={imageUrl} alt={imageTitle} />
@@ -108,7 +108,7 @@ export const BlogPostPanel: React.FC<{ post: BlogPostPanelType }> = ({
             <h1>{post.title}</h1>
             <p>{post.introduction}</p>
             <div css={category}>
-              <Link to={`/blog/category/${post.category}`}>
+              <Link to={`/blog/category/${post.category}/`}>
                 <div>{post.category}</div>
               </Link>
             </div>
