@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql } from 'gatsby';
 import { SeoQuery } from '../../types/graphql-types';
 
 type Props = {
@@ -18,31 +18,37 @@ export const SEO: React.FC<Props> = ({
   article,
   pathname,
 }) => {
-  const { site }: Required<SeoQuery> = useStaticQuery(query);
-
-  const metaTitle = title || site?.siteMetadata?.title!;
-  const metaDescription = description || site?.siteMetadata?.description!;
-  const metaImage = image ? image : site?.siteMetadata?.image!;
-  const metaUrl = `${site?.siteMetadata?.url!}${pathname}`;
-  const metaType = article ? 'article' : 'website';
-
   return (
-    <Helmet title={metaTitle!}>
-      <html prefix='og: http://ogp.me/ns#' />
-      <meta name='description' content={metaDescription} />
-      <meta name='image' content={metaImage} />
-      <meta property='og:site_name' content='Umihiko' />
-      <meta property='og:type' content={metaType} />
-      <meta property='og:url' content={metaUrl} />
-      <meta property='og:title' content={metaTitle} />
-      <meta property='og:description' content={metaDescription} />
-      <meta name='og:image' content={metaImage} />
-      {/* twitter */}
-      <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:title' content={metaTitle} />
-      <meta name='twitter:description' content={metaDescription} />
-      <meta name='twitter:image' content={metaImage} />
-    </Helmet>
+    <StaticQuery
+      query={query}
+      render={(data: SeoQuery) => {
+        const siteMetadata = data?.site?.siteMetadata;
+
+        const metaTitle = title || siteMetadata?.title!;
+        const metaDescription = description || siteMetadata?.description!;
+        const metaImage = image ? image : siteMetadata?.image!;
+        const metaUrl = `${siteMetadata?.url!}${pathname}`;
+        const metaType = article ? 'article' : 'website';
+        return (
+          <Helmet title={metaTitle}>
+            <html prefix='og: http://ogp.me/ns#' />
+            <meta name='description' content={metaDescription} />
+            <meta name='image' content={metaImage} />
+            <meta property='og:site_name' content='Umihiko' />
+            <meta property='og:type' content={metaType} />
+            <meta property='og:url' content={metaUrl} />
+            <meta property='og:title' content={metaTitle} />
+            <meta property='og:description' content={metaDescription} />
+            <meta name='og:image' content={metaImage} />
+            {/* twitter */}
+            <meta name='twitter:card' content='summary_large_image' />
+            <meta name='twitter:title' content={metaTitle} />
+            <meta name='twitter:description' content={metaDescription} />
+            <meta name='twitter:image' content={metaImage} />
+          </Helmet>
+        );
+      }}
+    />
   );
 };
 
