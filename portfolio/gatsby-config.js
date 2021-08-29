@@ -2,8 +2,7 @@ module.exports = {
   siteMetadata: {
     url: process.env.SITE_URL,
     title: 'Umihiko',
-    description:
-      '天沼海彦のプロフィール兼ブログ。プログラミングや日常のことについて書いてあります。',
+    description: 'プログラミングや日常のことについて書いてあります。',
     image: `${process.env.SITE_URL}/umihiko_index.jpg`,
   },
   plugins: [
