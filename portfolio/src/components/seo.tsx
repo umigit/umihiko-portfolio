@@ -27,16 +27,27 @@ export const SEO: React.FC<Props> = ({
   const metaType = article ? 'article' : 'website';
 
   return (
-    <Helmet title={metaTitle}>
+    <Helmet
+      title={metaTitle}
+      meta={[
+        {
+          name: 'description',
+          content: metaDescription,
+        },
+        {
+          property: 'og:image',
+          content: metaImage,
+        },
+      ]}
+    >
       <html prefix='og: http://ogp.me/ns#' />
-      <meta name='description' content={metaDescription} />
-      <meta name='image' content={metaImage} />
+      {/* <meta name='description' content={metaDescription} /> */}
       <meta property='og:site_name' content='Umihiko' />
       <meta property='og:type' content={metaType} />
       <meta property='og:url' content={metaUrl} />
       <meta property='og:title' content={metaTitle} />
       <meta property='og:description' content={metaDescription} />
-      <meta name='og:image' content={metaImage} />
+      <meta property='og:image' content={metaImage} />
       {/* twitter */}
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:title' content={metaTitle} />
