@@ -55,6 +55,11 @@ export const Layout: React.FC<{ pathname: string }> = ({
   const isTablet = useMediaQuery(tablet);
   const isPC = useMediaQuery(PC);
   const minHeight = use100vh() || '100vh';
+  const mainContainerCss = () => {
+    if (isMobile) return mainContainerMobile;
+    if (isTablet || isPC) return mainContainer;
+    return css``;
+  };
 
   return (
     <>
@@ -66,8 +71,7 @@ export const Layout: React.FC<{ pathname: string }> = ({
         />
 
         <Header pathname={pathname} />
-        {isMobile && <div css={mainContainerMobile}>{children}</div>}
-        {(isTablet || isPC) && <div css={mainContainer}>{children}</div>}
+        <div css={mainContainerCss}>{children}</div>
         {isMobile && <MobileNav />}
       </div>
     </>
