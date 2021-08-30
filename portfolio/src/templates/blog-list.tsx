@@ -25,6 +25,10 @@ const blogPanelList = css`
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+
+  @media ${mobile} {
+    padding: 0px 10px 67px;
+  }
 `;
 
 const blogPanelListMobile = css`
@@ -39,6 +43,16 @@ const blogPanelListMobile = css`
 const blogPanelContainer = css`
   width: calc(100% / 3);
   padding: 15px;
+
+  @media ${tablet} {
+    width: calc(100% / 2);
+    padding: 15px;
+  }
+
+  @media ${mobile} {
+    width: 100%;
+    padding: 10px 0;
+  }
 `;
 
 const blogPanelContainerTablet = css`
@@ -57,6 +71,11 @@ const paginationContainer = css`
   left: 0;
   right: 0;
   bottom: 0;
+
+  @media ${mobile} {
+    padding: 15px 0px 20px;
+    bottom: 60px;
+  }
 `;
 
 const paginationContainerMobile = css`
@@ -85,11 +104,6 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
     );
   }
 
-  const blogPostPanels = blogPosts.map(
-    (edge) =>
-      edge?.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
-  );
-
   return (
     <>
       <SEO pathname={location.pathname} title={title} />
@@ -100,39 +114,22 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
         </div>
 
         {/* Panel List */}
-        {isMobile && (
-          <div css={blogPanelListMobile}>
-            {blogPostPanels.map((panel) => (
-              <div css={blogPanelContainerMobile}>{panel}</div>
-            ))}
-          </div>
-        )}
-        {isTablet && (
-          <div css={blogPanelList}>
-            {blogPostPanels.map((panel) => (
-              <div css={blogPanelContainerTablet}>{panel}</div>
-            ))}
-          </div>
-        )}
-        {isPC && (
-          <div css={blogPanelList}>
-            {blogPostPanels.map((panel) => (
-              <div css={blogPanelContainer}>{panel}</div>
-            ))}
-          </div>
-        )}
+        <div css={blogPanelList}>
+          {blogPosts.map(
+            (edge) =>
+              edge?.node && (
+                <div css={blogPanelContainer}>
+                  <BlogPostPanel post={edge.node} key={edge.node.slug} />
+                </div>
+              )
+          )}
+        </div>
 
         {/* Pagination */}
-        {isMobile && (
-          <div css={paginationContainerMobile}>
-            <MobilePagination pageContext={pageContext} />
-          </div>
-        )}
-        {(isTablet || isPC) && (
-          <div css={paginationContainer}>
-            <Pagination pageContext={pageContext} />
-          </div>
-        )}
+        <div css={paginationContainer}>
+          {isMobile && <MobilePagination pageContext={pageContext} />}
+          {(isTablet || isPC) && <Pagination pageContext={pageContext} />}
+        </div>
       </Layout>
     </>
   );

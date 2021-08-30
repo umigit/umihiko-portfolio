@@ -22,10 +22,10 @@ const container = css`
 const panelContainer = css`
   padding: 15px 30px;
   transform: translateY(-40px);
-`;
 
-const panelContainerMobile = css`
-  padding: 15px 10px;
+  @media ${mobile} {
+    padding: 15px 10px;
+  }
 `;
 
 const panel = css`
@@ -34,12 +34,11 @@ const panel = css`
   background-color: rgba(0, 0, 0, 0.6);
   color: ${colors.white};
   display: flex;
-`;
 
-const panelMobile = css`
-  ${panel}
-  width: 100%;
-  display: block;
+  @media ${mobile} {
+    width: 100%;
+    display: block;
+  }
 `;
 
 const image = css`
@@ -62,14 +61,13 @@ const text = css`
     word-wrap: break-word;
     flex: 1;
   }
-`;
 
-const textMobile = css`
-  ${text}
-  width: 100%;
+  @media ${mobile} {
+    width: 100%;
 
-  h2 {
-    margin-bottom: 0.25rem;
+    h2 {
+      margin-bottom: 0.25rem;
+    }
   }
 `;
 
@@ -95,48 +93,34 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
       <SEO pathname={location.pathname} description={profile.summary} />
       <Layout pathname={location.pathname}>
         <div css={container}>
-          {isMobile && (
-            <div css={panelContainerMobile}>
-              <div css={panelMobile}>
-                <div css={textMobile}>
-                  <p>
+          <div css={panelContainer}>
+            <div css={panel}>
+              {(isTablet || isPC) && (
+                <StaticImage
+                  css={image}
+                  src='../images/profile.jpg'
+                  alt='profile'
+                />
+              )}
+              <div css={text}>
+                <p>
+                  {isMobile && (
                     <StaticImage
                       css={imageMobile}
                       height={100}
                       src='../images/profile.jpg'
                       alt='profile'
                     />
-                    <h2>{profile.nickname}</h2>
-                    {profile.summary}
-                  </p>
-                  <div css={accounts}>
-                    <Accounts />
-                  </div>
+                  )}
+                  <h2>{profile.nickname}</h2>
+                  {profile.summary}
+                </p>
+                <div css={accounts}>
+                  <Accounts />
                 </div>
               </div>
             </div>
-          )}
-          {(isTablet || isPC) && (
-            <div css={panelContainer}>
-              <div css={panel}>
-                <StaticImage
-                  css={image}
-                  src='../images/profile.jpg'
-                  alt='profile'
-                />
-
-                <div css={text}>
-                  <p>
-                    <h2>{profile.nickname}</h2>
-                    {profile.summary}
-                  </p>
-                  <div css={accounts}>
-                    <Accounts />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </Layout>
     </>

@@ -15,22 +15,20 @@ const wrapper = css`
   color: ${colors.white};
   z-index: 100;
   position: relative;
-`;
 
-const wrapperMobile = css`
-  ${wrapper}
-  height: 60px;
+  @media ${mobile} {
+    height: 60px;
+  }
 `;
 
 const home = css`
   position: absolute;
   top: 20px;
   left: 0;
-`;
 
-const homeMobile = css`
-  ${home}
-  top: 0;
+  @media ${mobile} {
+    top: 0;
+  }
 `;
 
 const nav = css`
@@ -40,17 +38,14 @@ const nav = css`
 `;
 
 export const Header: React.FC<{ pathname: string }> = ({ pathname }) => {
-  const isMobile = useMediaQuery({ query: mobile });
   const isTablet = useMediaQuery({ query: tablet });
   const isPC = useMediaQuery({ query: PC });
-  const wrapperCss = isMobile ? wrapperMobile : wrapper;
-  const homeCss = isMobile ? homeMobile : home;
 
   return (
     <header>
-      <div css={wrapperCss}>
+      <div css={wrapper}>
         {pathname !== '/' && (
-          <div css={homeCss}>
+          <div css={home}>
             <HomeButton css={{ height: '80px' }} />
           </div>
         )}
