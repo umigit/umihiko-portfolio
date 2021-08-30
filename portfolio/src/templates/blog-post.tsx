@@ -7,7 +7,7 @@ import { SideMenu } from '../components/side-menu';
 import { Markdown } from '../components/markdown';
 import { Breadcrumb } from '../components/breadcrumb';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile, tablet, PC } from '../styles/media-query';
 import { colors } from '../styles/colors';
 import {
   GetBlogPostBySlugQuery,
@@ -173,9 +173,9 @@ export type Props = PageProps<GetBlogPostBySlugQuery, SitePageContext>;
 
 const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPost = data.portfolio.blogPostBySlug;
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
+  const isMobile = useMediaQuery({ query: mobile });
+  const isTablet = useMediaQuery({ query: tablet });
+  const isPC = useMediaQuery({ query: PC });
   const imageTitle = blogPost?.image?.title || 'no image';
   const imageUrl = blogPost?.image?.url || '../images/noimage.png';
 

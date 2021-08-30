@@ -5,7 +5,7 @@ import { StaticImage } from 'gatsby-plugin-image';
 import { Layout } from '../components/layout';
 import { SEO } from '../components/seo';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile, tablet, PC } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -25,9 +25,9 @@ const imageMobile = css`
 `;
 
 const IndexPage: React.FC<PageProps> = ({ location }) => {
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
+  const isMobile = useMediaQuery({ query: mobile });
+  const isTablet = useMediaQuery({ query: tablet });
+  const isPC = useMediaQuery({ query: PC });
 
   return (
     <>

@@ -8,7 +8,7 @@ import { Pagination } from '../components/pagination';
 import { MobilePagination } from '../components/mobile-pagination';
 import { Breadcrumb } from '../components/breadcrumb';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile, tablet, PC } from '../styles/media-query';
 import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
 
 const breadcrumbContainer = css`
@@ -72,9 +72,9 @@ export type Props = PageProps<GetBlogPostsQuery, SitePageContext>;
 const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPosts = data.portfolio.blogPosts?.edges;
   const currentPage = pageContext.currentPage;
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
+  const isMobile = useMediaQuery({ query: mobile });
+  const isTablet = useMediaQuery({ query: tablet });
+  const isPC = useMediaQuery({ query: PC });
   const title = `記事一覧：${pageContext.category || '全カテゴリ'}`;
 
   if (!blogPosts || !currentPage) {
