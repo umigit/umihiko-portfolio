@@ -14,6 +14,7 @@ const panel = css`
   padding: 1rem;
   color: ${colors.white};
   background-color: ${colors.alphaBlack};
+  border: 1px solid rgba(255, 255, 255, 0.25);s
 
   a {
     color: ${colors.orange};

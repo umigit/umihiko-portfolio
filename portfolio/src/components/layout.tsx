@@ -6,7 +6,7 @@ import { use100vh } from 'react-div-100vh';
 import { Header } from './header';
 import { MobileNav } from './mobile-nav';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile } from '../styles/media-query';
 import { colors } from '../styles/colors';
 import '../styles/global.css';
 
@@ -40,20 +40,17 @@ const mainContainer = css`
   display: flex;
   flex-direction: column;
   flex: 1;
-`;
 
-const mainContainerMobile = css`
-  ${mainContainer}
-  padding-bottom: 60px;
+  @media ${mobile} {
+    padding-bottom: 60px;
+  }
 `;
 
 export const Layout: React.FC<{ pathname: string }> = ({
   children,
   pathname,
 }) => {
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
+  const isMobile = useMediaQuery({ query: mobile });
   const minHeight = use100vh() || '100vh';
 
   return (
@@ -66,8 +63,7 @@ export const Layout: React.FC<{ pathname: string }> = ({
         />
 
         <Header pathname={pathname} />
-        {isMobile && <div css={mainContainerMobile}>{children}</div>}
-        {(isTablet || isPC) && <div css={mainContainer}>{children}</div>}
+        <div css={mainContainer}>{children}</div>
         {isMobile && <MobileNav />}
       </div>
     </>

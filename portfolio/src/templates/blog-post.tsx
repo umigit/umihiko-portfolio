@@ -7,7 +7,7 @@ import { SideMenu } from '../components/side-menu';
 import { Markdown } from '../components/markdown';
 import { Breadcrumb } from '../components/breadcrumb';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile, tablet, PC } from '../styles/media-query';
 import { colors } from '../styles/colors';
 import {
   GetBlogPostBySlugQuery,
@@ -57,12 +57,10 @@ const blogPostPanelContainer = css`
   padding: 0 30px;
   flex: 1;
   position: relative;
-`;
 
-const blogPostPanelContainerMobile = css`
-  ${blogPostPanelContainer}
-
-  padding: 0 10px;
+  @media ${mobile} {
+    padding: 0 10px;
+  }
 `;
 
 const heading = css`
@@ -93,17 +91,17 @@ const blogPostPanel = css`
   padding: 1rem 2rem 2rem;
   color: ${colors.white};
   background-color: ${colors.alphaBlack};
+  border: 1px solid rgba(255, 255, 255, 0.25);
   ${heading}
 
   a {
     color: ${colors.orange};
     text-decoration: none;
   }
-`;
 
-const blogPostPanelMobile = css`
-  ${blogPostPanel}
-  padding: 1rem 0.5rem 2rem;
+  @media ${mobile} {
+    padding: 1rem 0.5rem 2rem;
+  }
 `;
 
 const date = css`
@@ -173,35 +171,14 @@ export type Props = PageProps<GetBlogPostBySlugQuery, SitePageContext>;
 
 const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPost = data.portfolio.blogPostBySlug;
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
+  const isTablet = useMediaQuery({ query: tablet });
+  const isPC = useMediaQuery({ query: PC });
   const imageTitle = blogPost?.image?.title || 'no image';
   const imageUrl = blogPost?.image?.url || '../images/noimage.png';
 
   if (!blogPost) {
     return <div></div>;
   }
-
-  const blogBody = (
-    <div>
-      <p css={date}>
-        <span>Last Updated: </span>
-        {formatDate(blogPost.updatedAt)}
-      </p>
-      <h1>{blogPost.title}</h1>
-
-      <div css={imageContainer}>
-        <img src={imageUrl} alt={imageTitle} />
-      </div>
-
-      <h2>概要</h2>
-      <p>{blogPost.introduction}</p>
-      <div css={body}>
-        <Markdown markdown={blogPost.markdown} />
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -212,34 +189,41 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
         image={imageUrl}
       />
       <Layout pathname={location.pathname}>
-        {isMobile && (
-          <div>
-            <div css={blogPostContainer}>
-              <div css={blogPostPanelContainerMobile}>
-                <div css={blogPostPanelMobile}>{blogBody}</div>
-              </div>
-            </div>
-          </div>
-        )}
-
+        {/* Breadcrumb */}
         {(isTablet || isPC) && (
-          <div>
-            <div css={breadcrumbConatiner}>
-              <Breadcrumb pageContext={pageContext} />
-            </div>
-
-            <div css={blogPostContainer}>
-              <div css={blogPostPanelContainer}>
-                <div css={blogPostPanel}>{blogBody}</div>
-              </div>
-              {isPC && (
-                <div css={sideMenuContainer}>
-                  <SideMenu pageContext={pageContext} />
-                </div>
-              )}
-            </div>
+          <div css={breadcrumbConatiner}>
+            <Breadcrumb pageContext={pageContext} />
           </div>
         )}
+
+        <div css={blogPostContainer}>
+          <div css={blogPostPanelContainer}>
+            <div css={blogPostPanel}>
+              <p css={date}>
+                <span>Last Updated: </span>
+                {formatDate(blogPost.updatedAt)}
+              </p>
+              <h1>{blogPost.title}</h1>
+
+              <div css={imageContainer}>
+                <img src={imageUrl} alt={imageTitle} />
+              </div>
+
+              <h2>概要</h2>
+              <p>{blogPost.introduction}</p>
+              <div css={body}>
+                <Markdown markdown={blogPost.markdown} />
+              </div>
+            </div>
+          </div>
+
+          {/* SiteMenu */}
+          {isPC && (
+            <div css={sideMenuContainer}>
+              <SideMenu pageContext={pageContext} />
+            </div>
+          )}
+        </div>
       </Layout>
     </>
   );

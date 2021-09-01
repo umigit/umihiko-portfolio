@@ -2,7 +2,6 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { colors } from '../styles/colors';
-import { useMediaQuery } from 'react-responsive';
 import { Portfolio_BlogPostType } from '../../types/graphql-types';
 
 const panelContainer = css`

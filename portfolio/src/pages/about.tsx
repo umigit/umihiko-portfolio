@@ -8,7 +8,7 @@ import { colors } from '../styles/colors';
 import { Accounts } from '../components/accounts';
 import { GetProfileQuery, SitePageContext } from '../../types/graphql-types';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile, tablet, PC } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -22,37 +22,43 @@ const container = css`
 const panelContainer = css`
   padding: 15px 30px;
   transform: translateY(-40px);
-`;
 
-const panelContainerMobile = css`
-  padding: 15px 10px;
+  @media ${mobile} {
+    padding: 15px 10px;
+    transform: translateY(0px);
+  }
 `;
 
 const panel = css`
-  width: 700px;
+  max-width: 700px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.6);
   color: ${colors.white};
   display: flex;
+  align-items: stretch;
+
+  @media ${mobile} {
+    width: 100%;
+    display: block;
+  }
 `;
 
-const panelMobile = css`
-  ${panel}
-  width: 100%;
-  display: block;
+const imageContainer = css`
+  width: 250px;
+
+  @media ${mobile} {
+    width: 120px;
+    margin: 20px 0 0 20px;
+    /* margin: 0 auto; */
+  }
 `;
 
 const image = css`
-  flex: 1;
-`;
-
-const imageMobile = css`
-  float: left;
-  margin-right: 1rem;
+  height: 100%;
 `;
 
 const text = css`
-  width: 450px;
+  flex: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -62,14 +68,13 @@ const text = css`
     word-wrap: break-word;
     flex: 1;
   }
-`;
 
-const textMobile = css`
-  ${text}
-  width: 100%;
+  @media ${mobile} {
+    width: 100%;
 
-  h2 {
-    margin-bottom: 0.25rem;
+    h2 {
+      margin-bottom: 0.25rem;
+    }
   }
 `;
 
@@ -81,9 +86,6 @@ export type Props = PageProps<GetProfileQuery, SitePageContext>;
 
 const AboutPage: React.FC<Props> = ({ data, location }) => {
   const user = data.portfolio.user;
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
   const profile = user!.profiles.find((p) => p.locale === 'ja');
 
   if (!profile) {
@@ -95,48 +97,26 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
       <SEO pathname={location.pathname} description={profile.summary} />
       <Layout pathname={location.pathname}>
         <div css={container}>
-          {isMobile && (
-            <div css={panelContainerMobile}>
-              <div css={panelMobile}>
-                <div css={textMobile}>
-                  <p>
-                    <StaticImage
-                      css={imageMobile}
-                      height={100}
-                      src='../images/profile.jpg'
-                      alt='profile'
-                    />
-                    <h2>{profile.nickname}</h2>
-                    {profile.summary}
-                  </p>
-                  <div css={accounts}>
-                    <Accounts />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-          {(isTablet || isPC) && (
-            <div css={panelContainer}>
-              <div css={panel}>
+          <div css={panelContainer}>
+            <div css={panel}>
+              <div css={imageContainer}>
                 <StaticImage
                   css={image}
                   src='../images/profile.jpg'
                   alt='profile'
                 />
-
-                <div css={text}>
-                  <p>
-                    <h2>{profile.nickname}</h2>
-                    {profile.summary}
-                  </p>
-                  <div css={accounts}>
-                    <Accounts />
-                  </div>
+              </div>
+              <div css={text}>
+                <p>
+                  <h2>{profile.nickname}</h2>
+                  {profile.summary}
+                </p>
+                <div css={accounts}>
+                  <Accounts />
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </Layout>
     </>
