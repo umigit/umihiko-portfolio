@@ -91,6 +91,7 @@ const blogPostPanel = css`
   padding: 1rem 2rem 2rem;
   color: ${colors.white};
   background-color: ${colors.alphaBlack};
+  border: 1px solid rgba(255, 255, 255, 0.25);
   ${heading}
 
   a {

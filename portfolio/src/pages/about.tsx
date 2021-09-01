@@ -25,15 +25,17 @@ const panelContainer = css`
 
   @media ${mobile} {
     padding: 15px 10px;
+    transform: translateY(0px);
   }
 `;
 
 const panel = css`
-  width: 700px;
+  max-width: 700px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.6);
   color: ${colors.white};
   display: flex;
+  align-items: stretch;
 
   @media ${mobile} {
     width: 100%;
@@ -41,17 +43,22 @@ const panel = css`
   }
 `;
 
-const image = css`
-  flex: 1;
+const imageContainer = css`
+  width: 250px;
+
+  @media ${mobile} {
+    width: 120px;
+    margin: 20px 0 0 20px;
+    /* margin: 0 auto; */
+  }
 `;
 
-const imageMobile = css`
-  float: left;
-  margin-right: 1rem;
+const image = css`
+  height: 100%;
 `;
 
 const text = css`
-  width: 450px;
+  flex: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -79,9 +86,6 @@ export type Props = PageProps<GetProfileQuery, SitePageContext>;
 
 const AboutPage: React.FC<Props> = ({ data, location }) => {
   const user = data.portfolio.user;
-  const isMobile = useMediaQuery({ query: mobile });
-  const isTablet = useMediaQuery({ query: tablet });
-  const isPC = useMediaQuery({ query: PC });
   const profile = user!.profiles.find((p) => p.locale === 'ja');
 
   if (!profile) {
@@ -95,23 +99,15 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
         <div css={container}>
           <div css={panelContainer}>
             <div css={panel}>
-              {!isMobile && (
+              <div css={imageContainer}>
                 <StaticImage
                   css={image}
                   src='../images/profile.jpg'
                   alt='profile'
                 />
-              )}
+              </div>
               <div css={text}>
                 <p>
-                  {isMobile && (
-                    <StaticImage
-                      css={imageMobile}
-                      height={100}
-                      src='../images/profile.jpg'
-                      alt='profile'
-                    />
-                  )}
                   <h2>{profile.nickname}</h2>
                   {profile.summary}
                 </p>
