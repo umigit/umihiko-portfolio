@@ -95,7 +95,7 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
         <div css={container}>
           <div css={panelContainer}>
             <div css={panel}>
-              {(isTablet || isPC) && (
+              {!isMobile && (
                 <StaticImage
                   css={image}
                   src='../images/profile.jpg'
