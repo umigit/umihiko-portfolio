@@ -14,7 +14,9 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "type-check": "tsc --noEmit",
-    "lint": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js"
+    "lint": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
@@ -44,11 +46,20 @@
     "react-syntax-highlighter": "^15.4.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-backgrounds": "^6.3.12",
+    "@storybook/addon-controls": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addon-viewport": "^6.3.12",
+    "@storybook/react": "^6.3.12",
     "@types/node": "^16.3.3",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "@types/react-helmet": "^6.1.2",
     "@types/react-syntax-highlighter": "^13.5.2",
+    "babel-loader": "^8.2.3",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
