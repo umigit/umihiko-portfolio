@@ -1,8 +1,7 @@
-import React from 'react';
+import { VFC } from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { colors } from '../styles/colors';
-import { useMediaQuery } from 'react-responsive';
 import { Portfolio_BlogPostType } from '../../types/graphql-types';
 
 const panelContainer = css`
@@ -86,14 +85,14 @@ const category = css`
   }
 `;
 
-type BlogPostPanelType = Pick<
-  Portfolio_BlogPostType,
-  'image' | 'category' | 'slug' | 'title' | 'introduction' | 'publishedAt'
->;
+export type Props = {
+  post: Pick<
+    Portfolio_BlogPostType,
+    'image' | 'category' | 'slug' | 'title' | 'introduction' | 'publishedAt'
+  >;
+};
 
-export const BlogPostPanel: React.FC<{ post: BlogPostPanelType }> = ({
-  post,
-}) => {
+export const BlogPostPanel: VFC<Props> = ({ post }) => {
   const imageTitle = post?.image?.title || 'no image';
   const imageUrl = post?.image?.url || '../images/noimage.png';
 
