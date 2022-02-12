@@ -20,8 +20,7 @@ const container = css`
 `;
 
 const panelContainer = css`
-  padding: 15px 30px;
-  transform: translateY(-40px);
+  padding: 15px 30px 80px;
 `;
 
 const panelContainerMobile = css`
@@ -47,8 +46,8 @@ const image = css`
 `;
 
 const imageMobile = css`
-  float: left;
-  margin-right: 1rem;
+  float: right;
+  margin-left: 1rem;
 `;
 
 const text = css`
@@ -69,7 +68,7 @@ const textMobile = css`
   width: 100%;
 
   h2 {
-    margin-bottom: 0.25rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -98,6 +97,7 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
           <div css={panelContainerMobile}>
             <div css={panelMobile}>
               <div css={textMobile}>
+                <h2>{profile.nickname}</h2>
                 <p>
                   <StaticImage
                     css={imageMobile}
@@ -105,7 +105,6 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
                     src='../images/profile.jpg'
                     alt='profile'
                   />
-                  <h2>{profile.nickname}</h2>
                   {profile.summary}
                 </p>
                 <div css={accounts}>
@@ -125,10 +124,8 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
               />
 
               <div css={text}>
-                <p>
-                  <h2>{profile.nickname}</h2>
-                  {profile.summary}
-                </p>
+                <h2>{profile.nickname}</h2>
+                <p>{profile.summary}</p>
                 <div css={accounts}>
                   <Accounts />
                 </div>
