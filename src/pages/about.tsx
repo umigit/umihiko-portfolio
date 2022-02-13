@@ -8,7 +8,7 @@ import { colors } from '../styles/colors';
 import { Accounts } from '../components/accounts';
 import { GetProfileQuery, SitePageContext } from '../../types/graphql-types';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile, tablet, PC } from '../styles/media-query';
 
 const container = css`
   width: 100%;
@@ -80,9 +80,9 @@ export type Props = PageProps<GetProfileQuery, SitePageContext>;
 
 const AboutPage: React.FC<Props> = ({ data, location }) => {
   const user = data.portfolio.user;
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
+  const isMobile = useMediaQuery({ query: mobile });
+  const isTablet = useMediaQuery({ query: tablet });
+  const isPC = useMediaQuery({ query: PC });
   const profile = user!.profiles.find((p) => p.locale === 'ja');
 
   if (!profile) {
