@@ -63,8 +63,8 @@ export const Pagination: React.FC<Props> = ({ pageContext }) => {
   }
 
   const previousPagePath =
-    prefix + (currentPage > 2 ? `/${currentPage - 1}` : ``);
-  const nextPagePath = `${prefix}/${currentPage + 1}`;
+    prefix + (currentPage > 2 ? `${currentPage - 1}/` : ``);
+  const nextPagePath = `${prefix}${currentPage + 1}/`;
 
   return (
     <div css={pagination}>
@@ -77,7 +77,7 @@ export const Pagination: React.FC<Props> = ({ pageContext }) => {
       <div css={pageContainer}>
         {[...Array(pageContext.numberOfPages)].map((_, i) => (
           <div css={page}>
-            <Link to={prefix + (i > 0 ? `/${i + 1}` : ``)}>
+            <Link to={prefix + (i > 0 ? `${i + 1}/` : ``)}>
               <div css={currentPage === i + 1 ? current : pageButton}>
                 {i + 1}
               </div>

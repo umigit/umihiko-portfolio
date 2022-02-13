@@ -50,7 +50,7 @@ export const Breadcrumb: React.FC<Props> = ({ pageContext }) => {
     <span css={child}>{category}</span>
   ) : (
     <span css={child}>
-      <Link to={`/blog/category/${category}`}>{category}</Link>
+      <Link to={`/blog/category/${category}/`}>{category}</Link>
     </span>
   );
 
@@ -59,7 +59,7 @@ export const Breadcrumb: React.FC<Props> = ({ pageContext }) => {
   return (
     <div css={breadcrumb}>
       <span css={top}>
-        <Link to='/blog'>TOP</Link>
+        <Link to='/blog/'>TOP</Link>
       </span>
       {categoryLink}
       {entryLink}

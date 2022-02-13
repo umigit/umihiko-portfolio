@@ -9,8 +9,7 @@ module.exports = {
   siteMetadata: {
     url: process.env.SITE_URL,
     title: 'Umihiko',
-    description:
-      '天沼海彦のプロフィール兼ブログ。プログラミングや日常のことについて書いてあります。',
+    description: 'プログラミングや日常のことについて書いてあります。',
     image: `${process.env.SITE_URL}/umihiko_index.jpg`,
   },
   plugins: [
@@ -24,7 +23,6 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-image`,
@@ -55,5 +53,6 @@ module.exports = {
         icon: './src/images/icon.png',
       },
     },
+    `gatsby-plugin-react-helmet`,
   ],
 };

@@ -69,12 +69,12 @@ export const MobilePagination: React.FC<Props> = ({ pageContext }) => {
   }
 
   const previousPagePath =
-    prefix + (currentPage > 2 ? `/${currentPage - 1}` : ``);
+    prefix + (currentPage > 2 ? `${currentPage - 1}/` : ``);
   const nextPagePath =
     prefix +
-    (currentPage < numberOfPages ? `/${currentPage + 1}` : `/${numberOfPages}`);
+    (currentPage < numberOfPages ? `${currentPage + 1}/` : `${numberOfPages}/`);
   const firstPagePath = `${prefix}`;
-  const lastPagePath = prefix + (numberOfPages > 1 ? `/${numberOfPages}` : ``);
+  const lastPagePath = prefix + (numberOfPages > 1 ? `${numberOfPages}/` : ``);
 
   const previous = [navigation, pageContext.hasPreviousPage ? null : disabled];
   const next = [navigation, pageContext.hasNextPage ? null : disabled];
@@ -89,11 +89,13 @@ export const MobilePagination: React.FC<Props> = ({ pageContext }) => {
         </Link>
       </div>
       <div css={previous}>
-        <Link to={previousPagePath}>
-          <div css={link}>
-            <NavigateBeforeIcon />
-          </div>
-        </Link>
+        {currentPage > 1 && (
+          <Link to={previousPagePath}>
+            <div css={link}>
+              <NavigateBeforeIcon />
+            </div>
+          </Link>
+        )}
       </div>
 
       <div css={page}>
@@ -101,11 +103,13 @@ export const MobilePagination: React.FC<Props> = ({ pageContext }) => {
       </div>
 
       <div css={next}>
-        <Link to={nextPagePath}>
-          <div css={link}>
-            <NavigateNextIcon />
-          </div>
-        </Link>
+        {currentPage < numberOfPages && (
+          <Link to={nextPagePath}>
+            <div css={link}>
+              <NavigateNextIcon />
+            </div>
+          </Link>
+        )}
       </div>
 
       <div css={navigationSmall}>

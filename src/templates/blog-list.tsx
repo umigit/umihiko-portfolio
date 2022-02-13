@@ -8,7 +8,7 @@ import { Pagination } from '../components/pagination';
 import { MobilePagination } from '../components/mobile-pagination';
 import { Breadcrumb } from '../components/breadcrumb';
 import { useMediaQuery } from 'react-responsive';
-import { moblie, tablet, PC } from '../styles/media-query';
+import { mobile, tablet, PC } from '../styles/media-query';
 import { GetBlogPostsQuery, SitePageContext } from '../../types/graphql-types';
 
 const breadcrumbContainer = css`
@@ -25,6 +25,10 @@ const blogPanelList = css`
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+
+  @media ${mobile} {
+    padding: 0px 10px 67px;
+  }
 `;
 
 const blogPanelListMobile = css`
@@ -39,6 +43,16 @@ const blogPanelListMobile = css`
 const blogPanelContainer = css`
   width: calc(100% / 3);
   padding: 15px;
+
+  @media ${tablet} {
+    width: calc(100% / 2);
+    padding: 15px;
+  }
+
+  @media ${mobile} {
+    width: 100%;
+    padding: 10px 0;
+  }
 `;
 
 const blogPanelContainerTablet = css`
@@ -57,6 +71,11 @@ const paginationContainer = css`
   left: 0;
   right: 0;
   bottom: 0;
+
+  @media ${mobile} {
+    padding: 15px 0px 20px;
+    bottom: 60px;
+  }
 `;
 
 const paginationContainerMobile = css`
@@ -72,9 +91,9 @@ export type Props = PageProps<GetBlogPostsQuery, SitePageContext>;
 const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
   const blogPosts = data.portfolio.blogPosts?.edges;
   const currentPage = pageContext.currentPage;
-  const isMobile = useMediaQuery(moblie);
-  const isTablet = useMediaQuery(tablet);
-  const isPC = useMediaQuery(PC);
+  const isMobile = useMediaQuery({ query: mobile });
+  const isTablet = useMediaQuery({ query: tablet });
+  const isPC = useMediaQuery({ query: PC });
   const title = `記事一覧：${pageContext.category || '全カテゴリ'}`;
 
   if (!blogPosts || !currentPage) {
@@ -85,54 +104,34 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
     );
   }
 
-  const blogPostPanels = blogPosts.map(
-    (edge) =>
-      edge?.node && <BlogPostPanel post={edge.node} key={edge.node.slug} />
-  );
-
   return (
-    <Layout pathname={location.pathname}>
+    <>
       <SEO pathname={location.pathname} title={title} />
-      {/* Bleadcrumb */}
-      <div css={breadcrumbContainer}>
-        <Breadcrumb pageContext={pageContext} />
-      </div>
+      <Layout pathname={location.pathname}>
+        {/* Bleadcrumb */}
+        <div css={breadcrumbContainer}>
+          <Breadcrumb pageContext={pageContext} />
+        </div>
 
-      {/* Panel List */}
-      {isMobile && (
-        <div css={blogPanelListMobile}>
-          {blogPostPanels.map((panel) => (
-            <div css={blogPanelContainerMobile}>{panel}</div>
-          ))}
-        </div>
-      )}
-      {isTablet && (
+        {/* Panel List */}
         <div css={blogPanelList}>
-          {blogPostPanels.map((panel) => (
-            <div css={blogPanelContainerTablet}>{panel}</div>
-          ))}
+          {blogPosts.map(
+            (edge) =>
+              edge?.node && (
+                <div css={blogPanelContainer}>
+                  <BlogPostPanel post={edge.node} key={edge.node.slug} />
+                </div>
+              )
+          )}
         </div>
-      )}
-      {isPC && (
-        <div css={blogPanelList}>
-          {blogPostPanels.map((panel) => (
-            <div css={blogPanelContainer}>{panel}</div>
-          ))}
-        </div>
-      )}
 
-      {/* Pagination */}
-      {isMobile && (
-        <div css={paginationContainerMobile}>
-          <MobilePagination pageContext={pageContext} />
-        </div>
-      )}
-      {(isTablet || isPC) && (
+        {/* Pagination */}
         <div css={paginationContainer}>
-          <Pagination pageContext={pageContext} />
+          {isMobile && <MobilePagination pageContext={pageContext} />}
+          {(isTablet || isPC) && <Pagination pageContext={pageContext} />}
         </div>
-      )}
-    </Layout>
+      </Layout>
+    </>
   );
 };
 

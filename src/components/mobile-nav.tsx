@@ -33,13 +33,13 @@ const button = css`
 export const MobileNav: React.FC = () => {
   return (
     <div css={navLink}>
-      <Link to='/about'>
+      <Link to='/about/'>
         <div css={button}>
           <PersonIcon fontSize='large' />
           <p>About</p>
         </div>
       </Link>
-      <Link to='/blog'>
+      <Link to='/blog/'>
         <div css={button}>
           <SubjectIcon fontSize='large' />
           <p>Blog</p>
