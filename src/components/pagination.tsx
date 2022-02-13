@@ -76,7 +76,7 @@ export const Pagination: React.FC<Props> = ({ pageContext }) => {
 
       <div css={pageContainer}>
         {[...Array(pageContext.numberOfPages)].map((_, i) => (
-          <div css={page}>
+          <div css={page} key={i}>
             <Link to={prefix + (i > 0 ? `${i + 1}/` : ``)}>
               <div css={currentPage === i + 1 ? current : pageButton}>
                 {i + 1}
