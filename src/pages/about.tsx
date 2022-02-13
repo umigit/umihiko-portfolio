@@ -61,15 +61,15 @@ const text = css`
     word-wrap: break-word;
     flex: 1;
   }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
 `;
 
 const textMobile = css`
   ${text}
   width: 100%;
-
-  h2 {
-    margin-bottom: 1rem;
-  }
 `;
 
 const accounts = css`

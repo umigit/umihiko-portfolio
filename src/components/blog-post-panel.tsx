@@ -7,11 +7,26 @@ import { Portfolio_BlogPostType } from '../../types/graphql-types';
 const panelContainer = css`
   width: 100%;
   display: flex;
+  position: relative;
 
   a {
     width: 100%;
     text-decoration: none;
   }
+`;
+
+const panelLink = css`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+`;
+
+const categoryLink = css`
+  position: relative;
+  z-index: 1;
 `;
 
 const panel = css`
@@ -70,6 +85,7 @@ const text = css`
 `;
 
 const category = css`
+  padding-left: 0.5rem;
   margin-top: 0.5rem 0;
   border-left: 0.25rem solid ${colors.orange};
   position: absolute;
@@ -98,22 +114,21 @@ export const BlogPostPanel: VFC<Props> = ({ post }) => {
 
   return (
     <div css={panelContainer} key={post.slug}>
-      <Link to={`/blog/entry/${post.slug}/`}>
-        <div css={panel}>
-          <div css={imageContainer}>
-            <img css={image} src={imageUrl} alt={imageTitle} />
-          </div>
-          <div css={text}>
-            <h1>{post.title}</h1>
-            <p>{post.introduction}</p>
-            <div css={category}>
-              <Link to={`/blog/category/${post.category}/`}>
-                <div>{post.category}</div>
-              </Link>
-            </div>
+      <div css={panel}>
+        <Link css={panelLink} to={`/blog/entry/${post.slug}/`} />
+        <div css={imageContainer}>
+          <img css={image} src={imageUrl} alt={imageTitle} />
+        </div>
+        <div css={text}>
+          <h1>{post.title}</h1>
+          <p>{post.introduction}</p>
+          <div css={category}>
+            <Link css={categoryLink} to={`/blog/category/${post.category}/`}>
+              {post.category}
+            </Link>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

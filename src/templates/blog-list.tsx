@@ -118,8 +118,8 @@ const BlogPage: React.FC<Props> = ({ data, location, pageContext }) => {
           {blogPosts.map(
             (edge) =>
               edge?.node && (
-                <div css={blogPanelContainer}>
-                  <BlogPostPanel post={edge.node} key={edge.node.slug} />
+                <div css={blogPanelContainer} key={edge.node.slug}>
+                  <BlogPostPanel post={edge.node} />
                 </div>
               )
           )}
