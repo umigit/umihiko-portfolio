@@ -1,4 +1,11 @@
+require('dotenv').config({
+  path: `.env`,
+});
+
 module.exports = {
+  flags: {
+    DEV_SSR: false,
+  },
   siteMetadata: {
     url: process.env.SITE_URL,
     title: 'Umihiko',

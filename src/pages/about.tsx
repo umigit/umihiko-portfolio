@@ -20,45 +20,38 @@ const container = css`
 `;
 
 const panelContainer = css`
-  padding: 15px 30px;
-  transform: translateY(-40px);
+  padding: 15px 30px 80px;
+`;
 
-  @media ${mobile} {
-    padding: 15px 10px;
-    transform: translateY(0px);
-  }
+const panelContainerMobile = css`
+  padding: 15px 10px;
 `;
 
 const panel = css`
-  max-width: 700px;
+  width: 700px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.6);
   color: ${colors.white};
   display: flex;
-  align-items: stretch;
-
-  @media ${mobile} {
-    width: 100%;
-    display: block;
-  }
 `;
 
-const imageContainer = css`
-  width: 250px;
-
-  @media ${mobile} {
-    width: 120px;
-    margin: 20px 0 0 20px;
-    /* margin: 0 auto; */
-  }
+const panelMobile = css`
+  ${panel}
+  width: 100%;
+  display: block;
 `;
 
 const image = css`
-  height: 100%;
+  flex: 1;
+`;
+
+const imageMobile = css`
+  float: right;
+  margin-left: 1rem;
 `;
 
 const text = css`
-  flex: 1;
+  width: 450px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -68,13 +61,14 @@ const text = css`
     word-wrap: break-word;
     flex: 1;
   }
+`;
 
-  @media ${mobile} {
-    width: 100%;
+const textMobile = css`
+  ${text}
+  width: 100%;
 
-    h2 {
-      margin-bottom: 0.25rem;
-    }
+  h2 {
+    margin-bottom: 1rem;
   }
 `;
 
@@ -86,6 +80,9 @@ export type Props = PageProps<GetProfileQuery, SitePageContext>;
 
 const AboutPage: React.FC<Props> = ({ data, location }) => {
   const user = data.portfolio.user;
+  const isMobile = useMediaQuery({ query: mobile });
+  const isTablet = useMediaQuery({ query: tablet });
+  const isPC = useMediaQuery({ query: PC });
   const profile = user!.profiles.find((p) => p.locale === 'ja');
 
   if (!profile) {
@@ -93,22 +90,21 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
   }
 
   return (
-    <>
+    <Layout pathname={location.pathname}>
       <SEO pathname={location.pathname} description={profile.summary} />
-      <Layout pathname={location.pathname}>
-        <div css={container}>
-          <div css={panelContainer}>
-            <div css={panel}>
-              <div css={imageContainer}>
-                <StaticImage
-                  css={image}
-                  src='../images/profile.jpg'
-                  alt='profile'
-                />
-              </div>
-              <div css={text}>
+      <div css={container}>
+        {isMobile && (
+          <div css={panelContainerMobile}>
+            <div css={panelMobile}>
+              <div css={textMobile}>
+                <h2>{profile.nickname}</h2>
                 <p>
-                  <h2>{profile.nickname}</h2>
+                  <StaticImage
+                    css={imageMobile}
+                    height={100}
+                    src='../images/profile.jpg'
+                    alt='profile'
+                  />
                   {profile.summary}
                 </p>
                 <div css={accounts}>
@@ -117,9 +113,28 @@ const AboutPage: React.FC<Props> = ({ data, location }) => {
               </div>
             </div>
           </div>
-        </div>
-      </Layout>
-    </>
+        )}
+        {(isTablet || isPC) && (
+          <div css={panelContainer}>
+            <div css={panel}>
+              <StaticImage
+                css={image}
+                src='../images/profile.jpg'
+                alt='profile'
+              />
+
+              <div css={text}>
+                <h2>{profile.nickname}</h2>
+                <p>{profile.summary}</p>
+                <div css={accounts}>
+                  <Accounts />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </Layout>
   );
 };
 

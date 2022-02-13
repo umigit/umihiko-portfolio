@@ -14,13 +14,16 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "type-check": "tsc --noEmit",
-    "lint": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js"
+    "lint": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "dotenv": "^16.0.0",
     "gatsby": "^3.9.1",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-plugin-emotion": "^6.9.0",
@@ -44,15 +47,25 @@
     "react-syntax-highlighter": "^15.4.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-backgrounds": "^6.3.12",
+    "@storybook/addon-controls": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addon-viewport": "^6.3.12",
+    "@storybook/react": "^6.3.12",
     "@types/node": "^16.3.3",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "@types/react-helmet": "^6.1.2",
     "@types/react-syntax-highlighter": "^13.5.2",
+    "babel-loader": "^8.2.3",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2",
+    "storybook-addon-gatsby": "^0.0.2",
     "typescript": "^4.3.5"
   }
 }
